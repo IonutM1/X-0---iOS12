@@ -24,4 +24,6 @@ class GameWithDeviceViewController: GameWithPlayerViewController {
         super.displayBottomView()
         player2Label.text = "Device - O"
     }
+    
+    
 }

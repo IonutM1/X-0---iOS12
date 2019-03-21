@@ -53,13 +53,12 @@ class HowYouPlayViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // call this func to force preferredStatusBarStyle to be read again.
-        setNeedsStatusBarAppearanceUpdate()
+        
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setNeedsStatusBarAppearanceUpdate()
         view.backgroundColor = UIColor.cyan
         buttons()
         
@@ -113,9 +112,7 @@ class HowYouPlayViewController: UIViewController {
         
         playerVsDevice.addTarget(self, action: #selector(buttonPressedWithDevice(sender:)), for: .touchUpInside)
         view.addSubview(playerVsDevice)
+        
     }
   
-    
-
-    
 }
