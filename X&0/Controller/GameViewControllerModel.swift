@@ -17,13 +17,15 @@ class GameViewModel: UIViewController {
     @IBOutlet var namedLabel1: UITextField!
     @IBOutlet var namedLabel2: UITextField!
     
+    override var prefersStatusBarHidden: Bool { return true }
+    
     let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
     
     let bounds = UIScreen.main.bounds
     
     @IBAction func buttonNewGamePressed(sender: Any) {
         
-        guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "HowYouPlayViewController") as? HowYouPlayViewController else {
+        guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "HowDoYouPlayViewController") as? HowDoYouPlayViewController else {
             print("Couldn't find to HowYouPlayViewController")
             return
         }
@@ -100,11 +102,9 @@ class GameViewModel: UIViewController {
                                                  width: bounds.size.width,
                                                  height: 0.8 * bounds.size.height))
         
-        
         containerView.backgroundColor = UIColor.white
         
         view.addSubview(containerView)
-        
         
     }
     

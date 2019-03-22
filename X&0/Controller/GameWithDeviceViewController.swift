@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GameWithDeviceViewController: GameWithPlayerViewController {
+class GameWithDeviceViewController: GameViewModel {
 
     
     override func viewDidLoad() {
@@ -22,7 +22,8 @@ class GameWithDeviceViewController: GameWithPlayerViewController {
     
     override func displayBottomView() {
         super.displayBottomView()
-        player2Label.text = "Device - O"
+        
+        label2.text = "Device - O"
     }
     
     

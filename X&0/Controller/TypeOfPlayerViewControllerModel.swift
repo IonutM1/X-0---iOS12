@@ -26,7 +26,7 @@ class TypeOfPlayerViewModel: UIViewController {
     
     @IBAction func backButtonPressed(sender: Any) {
         
-        guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "HowYouPlayViewController") as? HowYouPlayViewController else {
+        guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "HowDoYouPlayViewController") as? HowDoYouPlayViewController else {
             print("Couldn't find to HowToPlayViewController")
             return
         }
@@ -97,7 +97,7 @@ class TypeOfPlayerViewModel: UIViewController {
                                             width: 250,
                                             height: 40))
         
-//        label1.text = "Player1    X"
+        label1.text = "Player1    X"
         label1.textAlignment = .center
         label1.font = UIFont.boldSystemFont(ofSize: 30)
         
@@ -109,7 +109,7 @@ class TypeOfPlayerViewModel: UIViewController {
                                                 width: 200,
                                                 height: 40))
         
-//        namedLabel1.placeholder = "Please Insert Your Name"
+        namedLabel1.placeholder = "Please Insert Your Name"
         namedLabel1.textAlignment = .center
         namedLabel1.font = UIFont.systemFont(ofSize: 18)
         namedLabel1.backgroundColor = UIColor.white.withAlphaComponent(0.6)
@@ -143,7 +143,7 @@ class TypeOfPlayerViewModel: UIViewController {
                                              width: 250,
                                              height: 40))
         
-        label2.text = "Player2    O"
+//        label2.text = "Player2    O"
         label2.textAlignment = .center
         label2.font = UIFont.boldSystemFont(ofSize: 30)
         
@@ -156,7 +156,7 @@ class TypeOfPlayerViewModel: UIViewController {
                                                 width: 200,
                                                 height: 40))
         
-        namedLabel2.placeholder = "Please Insert Your Name"
+//        namedLabel2.placeholder = "Please Insert Your Name"
         namedLabel2.textAlignment = .center
         namedLabel2.font = UIFont.systemFont(ofSize: 18)
         namedLabel2.backgroundColor = UIColor.white.withAlphaComponent(0.6)

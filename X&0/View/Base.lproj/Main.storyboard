@@ -54,10 +54,10 @@
             </objects>
             <point key="canvasLocation" x="2857.971014492754" y="132.06521739130434"/>
         </scene>
-        <!--How You Play View Controller-->
+        <!--How Do You Play View Controller-->
         <scene sceneID="R4t-F7-LNX">
             <objects>
-                <viewController storyboardIdentifier="HowYouPlayViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xgF-W6-4cc" customClass="HowYouPlayViewController" customModule="X_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HowYouPlayViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xgF-W6-4cc" customClass="HowDoYouPlayViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mm9-qa-Mt4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

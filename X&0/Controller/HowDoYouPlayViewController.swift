@@ -1,5 +1,5 @@
 //
-//  HowYouPlayViewController.swift
+//  HowDoYouPlayViewController.swift
 //  X&0
 //
 //  Created by Ionut Marinica on 16/03/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HowYouPlayViewController: UIViewController {
+class HowDoYouPlayViewController: UIViewController {
     
     let bounds = UIScreen.main.bounds
     let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
