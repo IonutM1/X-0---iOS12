@@ -1,5 +1,5 @@
 //
-//  HowDoYouPlayViewController.swift
+//  HowYouPlayViewController.swift
 //  X&0
 //
 //  Created by Ionut Marinica on 16/03/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HowDoYouPlayViewController: UIViewController {
+class HowYouPlayViewController: UIViewController {
     
     let bounds = UIScreen.main.bounds
     let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -21,6 +21,7 @@ class HowDoYouPlayViewController: UIViewController {
             return
         }
         
+        destinationVC.modalTransitionStyle = .flipHorizontal
         present(destinationVC, animated: true, completion: nil)
     }
     
@@ -31,7 +32,7 @@ class HowDoYouPlayViewController: UIViewController {
             return
         }
         
-//        destinationVC.modalTransitionStyle = .partialCurl
+        destinationVC.modalTransitionStyle = .crossDissolve
         present(destinationVC, animated: true, completion: nil)
         
 //        navigationController?.pushViewController(destinationVC, animated: true)
@@ -44,7 +45,7 @@ class HowDoYouPlayViewController: UIViewController {
             print("Couldn't find to PlayerVsDeviceViewController")
             return
         }
-//        destinationVC.modalTransitionStyle = .partialCurl
+        destinationVC.modalTransitionStyle = .crossDissolve
         present(destinationVC, animated: true, completion: nil)
         
 //        navigationController?.pushViewController(destinationVC, animated: true)

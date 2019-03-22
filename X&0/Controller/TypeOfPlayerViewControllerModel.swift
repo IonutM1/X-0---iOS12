@@ -13,7 +13,8 @@ class TypeOfPlayerViewModel: UIViewController {
     
     override var prefersStatusBarHidden: Bool { return true }
     
-    var name = ""
+    var name1 = "Player1"
+    var name2 = "Player2"
     
     let bounds = UIScreen.main.bounds
     let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -26,18 +27,20 @@ class TypeOfPlayerViewModel: UIViewController {
     
     @IBAction func backButtonPressed(sender: Any) {
         
-        guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "HowDoYouPlayViewController") as? HowDoYouPlayViewController else {
+        guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "HowYouPlayViewController") as? HowYouPlayViewController else {
             print("Couldn't find to HowToPlayViewController")
             return
         }
         
-        destinationVC.modalTransitionStyle = .crossDissolve
+        destinationVC.modalTransitionStyle = .flipHorizontal
         present(destinationVC, animated: true, completion: nil)
         
     }
     
     @IBAction func nextButtonPressed(sender: Any) {
         
+       
+       
         
     }
     
@@ -48,9 +51,14 @@ class TypeOfPlayerViewModel: UIViewController {
         dissmissKeyboard()
         
         // Set name player when okButtonPressed
-        label1.text = name + " - X"
+        label1.text = name1 + " - X"
         namedLabel1.text = ""
+       
         print("OK button 1 pressed")
+        print(label1.text!)
+        print(name1)
+        
+        
     }
     
     @IBAction func okButton2Pressed(sender: Any) {
@@ -59,9 +67,11 @@ class TypeOfPlayerViewModel: UIViewController {
         dissmissKeyboard()
         
         // Set name player when okButtonPressed
-        label2.text = name + " - O"
+        label2.text = name2 + " - O"
         namedLabel2.text = ""
         print("OK button 2 pressed")
+        
+        
         
     }
     
@@ -97,7 +107,7 @@ class TypeOfPlayerViewModel: UIViewController {
                                             width: 250,
                                             height: 40))
         
-        label1.text = "Player1    X"
+        label1.text = "Player1  X"
         label1.textAlignment = .center
         label1.font = UIFont.boldSystemFont(ofSize: 30)
         
@@ -168,6 +178,7 @@ class TypeOfPlayerViewModel: UIViewController {
         tapGesture2.numberOfTapsRequired = 1
         
         namedLabel2.addGestureRecognizer(tapGesture2)
+        
         containerView.addSubview(namedLabel2)
         
         // Ok button for Player2
@@ -204,6 +215,7 @@ class TypeOfPlayerViewModel: UIViewController {
     // MARK: - Dissmis Keyboard
     let dissmisKeyboard = UITapGestureRecognizer(target: self, action: #selector(dissmissKeyboard))
     
+    
     @objc func dissmissKeyboard() {
         
         view.endEditing(true)
@@ -214,14 +226,18 @@ class TypeOfPlayerViewModel: UIViewController {
     @objc func tapedOnText1() {
         
         namedLabel1.becomeFirstResponder()
-        name = namedLabel1.text!
+
+        namedLabel1.placeholder = namedLabel1.text
+        name1 = namedLabel1.placeholder!
         
     }
     
     @objc func tapedOnText2() {
         
         namedLabel2.becomeFirstResponder()
-        name = namedLabel2.text!
+        
+        namedLabel2.placeholder = namedLabel2.text
+        name2 = namedLabel2.placeholder!
     
     
 }

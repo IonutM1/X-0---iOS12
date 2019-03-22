@@ -20,7 +20,7 @@ class PlayerVsDeviceViewController: PlayerVsPlayerViewController {
         
         label2.text = "Device   O"
         namedLabel2.placeholder = "Insert Device Name"
-        
+        name2 = "Device"
     }
     
     @IBAction override func nextButtonPressed(sender: Any) {
@@ -29,6 +29,8 @@ class PlayerVsDeviceViewController: PlayerVsPlayerViewController {
             return
         }
         
+        destinationVC.finalName1 = "\(name1)    X"
+        destinationVC.finalName2 = "\(name2)    O"
         destinationVC.modalTransitionStyle = .crossDissolve
         present(destinationVC, animated: true, completion: nil)
     }

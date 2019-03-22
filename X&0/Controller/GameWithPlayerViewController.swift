@@ -8,8 +8,8 @@
 
 import UIKit
 
-class GameWithPlayerViewController: GameViewModel {
-   
+class GameWithPlayerViewController: GameViewControllerModel {
+
     override func viewDidLoad() {
         super.viewDidLoad()
      
@@ -21,4 +21,13 @@ class GameWithPlayerViewController: GameViewModel {
         
     }
     
+    override func displayTopView() {
+        super.displayTopView()
+        
+        label1.text = finalName1
+        print(label1.text!)
+        
+        label2.text = finalName2
+        print(label2.text!)
+    }
 }

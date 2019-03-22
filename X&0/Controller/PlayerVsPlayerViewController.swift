@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import UIKit
 
 class PlayerVsPlayerViewController: TypeOfPlayerViewModel {
+    
     
     @IBAction override func nextButtonPressed(sender: Any) {
         
@@ -16,12 +18,23 @@ class PlayerVsPlayerViewController: TypeOfPlayerViewModel {
             print("Couldn't find to GameWithPlayerViewController")
             return
         }
+
+        
+        destinationVC.finalName1 = "\(name1)    X"
+        destinationVC.finalName2 = "\(name2)    O"
         
         destinationVC.modalTransitionStyle = .crossDissolve
         present(destinationVC, animated: true, completion: nil)
         
         //        navigationController?.pushViewController(destinationVC, animated: true)
+        
+//        performSegue(withIdentifier: "GameWithPlayer", sender: self)
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let vc = segue.destination as! GameWithPlayerViewController
+//        vc.finalName = self.name
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,5 +48,6 @@ class PlayerVsPlayerViewController: TypeOfPlayerViewModel {
         label2.text = "Player2  O"
         
         namedLabel2.placeholder = "Please Insert Your Name"
+        
     }
 }
