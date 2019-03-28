@@ -10,6 +10,7 @@
 		C606E6712243EA68000E9FF3 /* GameViewControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C606E6702243EA68000E9FF3 /* GameViewControllerModel.swift */; };
 		C606E67D2243F5E1000E9FF3 /* TypeOfPlayerViewControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C606E67C2243F5E1000E9FF3 /* TypeOfPlayerViewControllerModel.swift */; };
 		C606E67F224400BD000E9FF3 /* PlayerVsPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C606E67E224400BD000E9FF3 /* PlayerVsPlayerViewController.swift */; };
+		C606E6852244DBB0000E9FF3 /* X&OButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C606E6842244DBB0000E9FF3 /* X&OButton.swift */; };
 		C60CF48D223B95400022371A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60CF48C223B95400022371A /* AppDelegate.swift */; };
 		C60CF48F223B95400022371A /* CreateNewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60CF48E223B95400022371A /* CreateNewGameViewController.swift */; };
 		C60CF492223B95400022371A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C60CF490223B95400022371A /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 		C606E6702243EA68000E9FF3 /* GameViewControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerModel.swift; sourceTree = "<group>"; };
 		C606E67C2243F5E1000E9FF3 /* TypeOfPlayerViewControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeOfPlayerViewControllerModel.swift; sourceTree = "<group>"; };
 		C606E67E224400BD000E9FF3 /* PlayerVsPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerVsPlayerViewController.swift; sourceTree = "<group>"; };
+		C606E6842244DBB0000E9FF3 /* X&OButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "X&OButton.swift"; sourceTree = "<group>"; };
 		C60CF489223B95400022371A /* X&0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "X&0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C60CF48C223B95400022371A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C60CF48E223B95400022371A /* CreateNewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewGameViewController.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 		C606E6722243EE30000E9FF3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C606E6842244DBB0000E9FF3 /* X&OButton.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 				C6416C66223C696A00B7EF3D /* GameWithPlayerViewController.swift in Sources */,
 				C60CF48F223B95400022371A /* CreateNewGameViewController.swift in Sources */,
 				C6416C62223C682800B7EF3D /* HowDoYouPlayViewController.swift in Sources */,
+				C606E6852244DBB0000E9FF3 /* X&OButton.swift in Sources */,
 				C606E67F224400BD000E9FF3 /* PlayerVsPlayerViewController.swift in Sources */,
 				C60CF48D223B95400022371A /* AppDelegate.swift in Sources */,
 				C6416C6A223C6A8400B7EF3D /* GameWithDeviceViewController.swift in Sources */,

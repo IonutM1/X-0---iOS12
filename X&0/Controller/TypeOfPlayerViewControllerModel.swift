@@ -37,7 +37,7 @@ class TypeOfPlayerViewModel: UIViewController {
         
     }
     
-    @IBAction func nextButtonPressed(sender: Any) {
+    @IBAction func startButtonPressed(sender: Any) {
         
        
        
@@ -194,21 +194,21 @@ class TypeOfPlayerViewModel: UIViewController {
         
         containerView.addSubview(okButtonForPlayer2)
         
-        // Set NextButton
-        let nextButton = UIButton(frame: CGRect(x: containerView.frame.size.width - 110,
+        // Set startButton
+        let startButton = UIButton(frame: CGRect(x: containerView.frame.size.width - 110,
                                                 y: containerView.frame.size.height - 50,
                                                 width: 100,
                                                 height: 40))
-        nextButton.setTitle("Next", for: .normal)
-        nextButton.setTitleColor(UIColor.black, for: .normal)
-        nextButton.setTitleColor(UIColor.white, for: .highlighted)
+        startButton.setTitle("Start", for: .normal)
+        startButton.setTitleColor(UIColor.black, for: .normal)
+        startButton.setTitleColor(UIColor.white, for: .highlighted)
         
-        nextButton.layer.borderColor = UIColor.black.cgColor
-        nextButton.layer.borderWidth = 1
-        nextButton.layer.cornerRadius = 20
+        startButton.layer.borderColor = UIColor.black.cgColor
+        startButton.layer.borderWidth = 1
+        startButton.layer.cornerRadius = 20
         
-        nextButton.addTarget(self, action: #selector(nextButtonPressed(sender:)), for: .touchUpInside)
-        containerView.addSubview(nextButton)
+        startButton.addTarget(self, action: #selector(startButtonPressed(sender:)), for: .touchUpInside)
+        containerView.addSubview(startButton)
         
     }
     
@@ -229,6 +229,7 @@ class TypeOfPlayerViewModel: UIViewController {
 
         namedLabel1.placeholder = namedLabel1.text
         name1 = namedLabel1.placeholder!
+        
         
     }
     

@@ -23,7 +23,7 @@ class PlayerVsDeviceViewController: PlayerVsPlayerViewController {
         name2 = "Device"
     }
     
-    @IBAction override func nextButtonPressed(sender: Any) {
+    @IBAction override func startButtonPressed(sender: Any) {
         guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "GameWithDeviceViewController") as? GameWithDeviceViewController else {
             print("Couldn't find to GameWithDeviceViewController")
             return

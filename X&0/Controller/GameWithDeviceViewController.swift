@@ -14,6 +14,8 @@ class GameWithDeviceViewController: GameViewControllerModel {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = UIColor.cyan
+        
         displayTopView()
         displayCenterView()
         displayBottomView()

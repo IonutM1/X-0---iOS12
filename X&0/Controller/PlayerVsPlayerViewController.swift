@@ -12,7 +12,7 @@ import UIKit
 class PlayerVsPlayerViewController: TypeOfPlayerViewModel {
     
     
-    @IBAction override func nextButtonPressed(sender: Any) {
+    @IBAction override func startButtonPressed(sender: Any) {
         
         guard let destinationVC = self.mainStoryboard.instantiateViewController(withIdentifier: "GameWithPlayerViewController") as? GameWithPlayerViewController else {
             print("Couldn't find to GameWithPlayerViewController")
@@ -20,8 +20,8 @@ class PlayerVsPlayerViewController: TypeOfPlayerViewModel {
         }
 
         
-        destinationVC.finalName1 = "\(name1)    X"
-        destinationVC.finalName2 = "\(name2)    O"
+        destinationVC.finalName1 = "\(name1) - X"
+        destinationVC.finalName2 = "\(name2) - O"
         
         destinationVC.modalTransitionStyle = .crossDissolve
         present(destinationVC, animated: true, completion: nil)

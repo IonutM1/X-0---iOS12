@@ -6,4 +6,8 @@
 //  Copyright © 2019 Ionut Marinica. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class XOButton: UIButton {
+    var index: Int8?
+}
