@@ -9,29 +9,58 @@
 import UIKit
 
 class GameWithDeviceViewController: GameViewControllerModel {
-
+    
+    var inProgressLabel = UILabel()
+    
+    @IBAction func backButtonPressed(sender: Any) {
+        
+        guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "HowYouPlayViewController") as? HowYouPlayViewController else {
+            print("Couldn't find to HowToPlayViewController")
+            return
+        }
+        
+        destinationVC.modalTransitionStyle = .flipHorizontal
+        present(destinationVC, animated: true, completion: nil)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor.cyan
+        inProgressGame()
         
-        displayTopView()
-        displayCenterView()
-        displayBottomView()
-        
+//
+//        displayTopView()
+//        displayCenterView()
+//        displayBottomView()
+
     }
     
-    override func displayBottomView() {
-        super.displayBottomView()
+    func inProgressGame() {
+    
+        inProgressLabel = UILabel(frame: CGRect(x: (bounds.size.width - 280) / 2,
+                                                y: (bounds.size.height - 50) / 2,
+                                                width: 280,
+                                                height: 50))
+        inProgressLabel.text = "Sorry!Game in progress!"
+        inProgressLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        view.addSubview(inProgressLabel)
         
-        label1.text = finalName1
-        print(label1.text!)
+        let backButton = UIButton(frame: CGRect(x: 10,
+                                                y: 0.036 * bounds.size.height,
+                                                width: 50,
+                                                height: 50))
         
-        label2.text = finalName2
-        print(label2.text!)
+        backButton.setImage(UIImage(named: "BackIcon"), for: .normal)
+        backButton.contentMode = .scaleAspectFill
         
+        backButton.addTarget(self, action: #selector(backButtonPressed(sender:)), for: .touchUpInside)
+        
+        view.addSubview(backButton)
     }
+    
+    
+
     
     
 }

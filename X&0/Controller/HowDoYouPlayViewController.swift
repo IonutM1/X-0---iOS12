@@ -15,6 +15,8 @@ class HowYouPlayViewController: UIViewController {
     
     override var prefersStatusBarHidden: Bool { return true }
     
+    // MARK: - ButtonPressed
+    // backButtonPressed
     @IBAction func backButtonPressed (sender: Any) {
         guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "CreateNewGameViewController") as? CreateNewGameViewController else {
             print("Couldn't find to CreateNewGameViewController")
@@ -25,6 +27,7 @@ class HowYouPlayViewController: UIViewController {
         present(destinationVC, animated: true, completion: nil)
     }
     
+    // buttonPressedWithPlayer
     @IBAction func buttonPressedWithPlayer (sender: Any) {
         
         guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "PlayerVsPlayerViewController") as? PlayerVsPlayerViewController else {
@@ -39,6 +42,7 @@ class HowYouPlayViewController: UIViewController {
         
     }
     
+    // buttonPressedWithDevice
     @IBAction func buttonPressedWithDevice (sender: Any) {
         
         guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "PlayerVsDeviceViewController") as? PlayerVsDeviceViewController else {
@@ -51,20 +55,16 @@ class HowYouPlayViewController: UIViewController {
 //        navigationController?.pushViewController(destinationVC, animated: true)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        // call this func to force preferredStatusBarStyle to be read again.
-        
-    }
-    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setNeedsStatusBarAppearanceUpdate()
-        view.backgroundColor = UIColor.cyan
+        
         buttons()
         
     }
     
+    // MARK: - set button
     func buttons() {
 
         let backButton = UIButton(frame: CGRect(x: 10,

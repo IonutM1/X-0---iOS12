@@ -25,6 +25,9 @@ class TypeOfPlayerViewModel: UIViewController {
     @IBOutlet var label1: UILabel!
     @IBOutlet var label2: UILabel!
     
+    
+    // MARK: - ButtonPressed
+    // BackButtonPressed
     @IBAction func backButtonPressed(sender: Any) {
         
         guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "HowYouPlayViewController") as? HowYouPlayViewController else {
@@ -37,14 +40,12 @@ class TypeOfPlayerViewModel: UIViewController {
         
     }
     
+    // startButtonPressed
     @IBAction func startButtonPressed(sender: Any) {
-        
-       
-       
         
     }
     
-    // OkButtonPressed
+    // OkButton1Pressed
     @IBAction func okButton1Pressed(sender: Any) {
         
         tapedOnText1()
@@ -58,9 +59,9 @@ class TypeOfPlayerViewModel: UIViewController {
         print(label1.text!)
         print(name1)
         
-        
     }
     
+    // OkButton2Pressed
     @IBAction func okButton2Pressed(sender: Any) {
         
         tapedOnText2()
@@ -70,8 +71,6 @@ class TypeOfPlayerViewModel: UIViewController {
         label2.text = name2 + " - O"
         namedLabel2.text = ""
         print("OK button 2 pressed")
-        
-        
         
     }
     
@@ -85,7 +84,6 @@ class TypeOfPlayerViewModel: UIViewController {
         
         let containerView = UIView(frame: frame)
         
-        view.backgroundColor = UIColor.cyan
         view.addSubview(containerView)
         
         //         Back button
@@ -230,7 +228,6 @@ class TypeOfPlayerViewModel: UIViewController {
         namedLabel1.placeholder = namedLabel1.text
         name1 = namedLabel1.placeholder!
         
-        
     }
     
     @objc func tapedOnText2() {
@@ -240,7 +237,6 @@ class TypeOfPlayerViewModel: UIViewController {
         namedLabel2.placeholder = namedLabel2.text
         name2 = namedLabel2.placeholder!
     
-    
-}
+    }
     
 }

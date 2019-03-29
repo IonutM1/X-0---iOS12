@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class GameViewControllerModel: UIViewController {
     
@@ -15,11 +16,15 @@ class GameViewControllerModel: UIViewController {
     var xPut = true
     
     var containerButtonView: UIView?
+    // X & O Numbers
     var xNum: Array<Int> = []
     var oNum: Array<Int> = []
     
+    
     var finalName1 = ""
     var finalName2 = ""
+    
+    var currentImage = UIImage()
     
     var scoreX = 0
     var scoreO = 0
@@ -28,12 +33,26 @@ class GameViewControllerModel: UIViewController {
     @IBOutlet var label1: UILabel!
     @IBOutlet var label2: UILabel!
     
+    var containerTopView = UIView()
+    var containerBottomView = UIView()
+    
+    var button = XOButton()
+    
     override var prefersStatusBarHidden: Bool { return true }
     
     let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
     
     let bounds = UIScreen.main.bounds
     
+    let winCombinations: Array<Array<Int>> = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+    ]
+    
+    var player: AVAudioPlayer?
+    
+    // MARK: - ButtonPressed
     @IBAction func buttonNewGamePressed(sender: Any) {
         
         guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "HowYouPlayViewController") as? HowYouPlayViewController else {
@@ -47,20 +66,39 @@ class GameViewControllerModel: UIViewController {
         
     }
     
-    @IBAction func buttonResetGame(sender: Any) {
+    @IBAction func resetGameButtonPressed(sender: Any) {
       
         resetGame()
     }
     
+    // Sound MP3
+    @IBAction func soundButtonPressed(sender: Any) {
+        
+        if let path = Bundle.main.path(forResource: "SoundMP3", ofType: "mp3") {
+            player = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: path), fileTypeHint: "mp3")
+            
+            if let sound = player {
+//                sound.prepareToPlay()
+                sound.play()
+                
+            }
+        }else {
+            print("no sound")
+        }
+        
+    }
+    
+    // MARK: - Set Label & Button
+    // DisplayTopView
     func displayTopView(){
         
-        let containerView = UIView(frame: CGRect(x: 0,
+        containerTopView = UIView(frame: CGRect(x: 0,
                                                  y: 0,
                                                  width: bounds.size.width,
                                                  height: 0.20 * bounds.size.height))
         
 //        containerView.backgroundColor = UIColor.gray
-        view.addSubview(containerView)
+        view.addSubview(containerTopView)
         
         let newGame = UIButton(frame: CGRect(x: 10,
                                              y: 0.036 * bounds.size.height,
@@ -70,15 +108,29 @@ class GameViewControllerModel: UIViewController {
         newGame.setTitle("New game", for: .normal)
         newGame.setTitleColor(UIColor.black, for: .normal)
         newGame.setTitleColor(UIColor.white, for: .highlighted)
-        
+        newGame.backgroundColor = UIColor.white
         newGame.layer.borderWidth = 1
         newGame.layer.borderColor = UIColor.black.cgColor
         newGame.layer.cornerRadius = 17
         
         newGame.addTarget(self, action: #selector(buttonNewGamePressed(sender:)), for: .touchUpInside)
-        containerView.addSubview(newGame)
+        containerTopView.addSubview(newGame)
         
-        let resetGame = UIButton(frame: CGRect(x: containerView.frame.size.width - 110,
+        let sound = UIButton(frame: CGRect(x: (containerTopView.frame.size.width - 50) / 2,
+                                           y: 0.036 * bounds.size.height,
+                                           width: 50,
+                                           height: 34))
+        
+        sound.setImage(UIImage(named: "SoundIcon"), for: .normal)
+//        sound.layer.borderWidth = 1
+//        sound.layer.borderColor = UIColor.black.cgColor
+//        sound.layer.cornerRadius = 17
+        sound.contentMode = .scaleAspectFill
+        
+        sound.addTarget(self, action: #selector(soundButtonPressed(sender:)), for: .touchUpInside)
+        containerTopView.addSubview(sound)
+        
+        let resetGame = UIButton(frame: CGRect(x: containerTopView.frame.size.width - 110,
                                                y: 0.036 * bounds.size.height,
                                                width: 100,
                                                height: 34))
@@ -86,26 +138,27 @@ class GameViewControllerModel: UIViewController {
         resetGame.setTitle("Reset", for: .normal)
         resetGame.setTitleColor(UIColor.black, for: .normal)
         resetGame.setTitleColor(UIColor.white, for: .highlighted)
-        
+        resetGame.backgroundColor = UIColor.white
         resetGame.layer.borderWidth = 1
         resetGame.layer.borderColor = UIColor.black.cgColor
         resetGame.layer.cornerRadius = 17
         
-        resetGame.addTarget(self, action: #selector(buttonResetGame(sender:)), for: .touchUpInside)
-        containerView.addSubview(resetGame)
+        resetGame.addTarget(self, action: #selector(resetGameButtonPressed(sender:)), for: .touchUpInside)
+        containerTopView.addSubview(resetGame)
         
-        label1 = UILabel(frame: CGRect(x: (containerView.frame.size.width - 250) / 2,
-                                                 y: (containerView.frame.size.height - newGame.frame.origin.y + 34) / 2,
+        label1 = UILabel(frame: CGRect(x: (containerTopView.frame.size.width - 250) / 2,
+                                                 y: (containerTopView.frame.size.height - newGame.frame.origin.y + 34) / 2,
                                                  width: 250,
                                                  height: 40))
         label1.textAlignment = .center
         label1.font = UIFont.systemFont(ofSize: 25)
 //        label1.textColor = UIColor.black
 //        label1.backgroundColor = UIColor.white
-        
-        containerView.addSubview(label1)
+        label1.text = finalName1
+        containerTopView.addSubview(label1)
     }
     
+    // DisplayCenterView
     func displayCenterView() {
         
         containerButtonView = UIView(frame: CGRect(x: 0,
@@ -114,6 +167,8 @@ class GameViewControllerModel: UIViewController {
                                                  height: 0.60 * bounds.size.height))
         
         containerButtonView!.backgroundColor = UIColor.white
+        containerButtonView?.layer.borderColor = UIColor.white.cgColor
+        containerButtonView?.layer.borderWidth = 9
         
         view.addSubview(containerButtonView!)
         
@@ -124,18 +179,18 @@ class GameViewControllerModel: UIViewController {
             
             for j in 0...2{
                 
-                let button = XOButton(frame: CGRect(x: CGFloat(i) * buttonWidth,
+                button = XOButton(frame: CGRect(x: CGFloat(i) * buttonWidth,
                                                     y: CGFloat(j) * buttonHeight,
                                                     width: buttonWidth,
                                                     height: buttonHeight))
                 
-                let backgroundColor = UIColor.orange
+                let backgroundColor = UIColor.white
                 
                 let buttonImage = getImageWithColor(color: backgroundColor,
                                                     size: button.frame.size)
             
                 button.setBackgroundImage(buttonImage, for: .normal)
-                button.layer.borderWidth = 1
+                button.layer.borderWidth = 8
                 button.layer.borderColor = UIColor.black.cgColor
               
                 
@@ -143,11 +198,36 @@ class GameViewControllerModel: UIViewController {
                 print(button.tag)
                 containerButtonView!.addSubview(button)
 
-                button.tag = 1 +  i + j + 2 * j
+                button.tag = i + 3 * j
                 button.addTarget(self, action: #selector(buttonSelected(sender:)), for: .touchUpInside)
             }
             
         }
+        
+    }
+    
+    // DisplayBottomView
+    func displayBottomView() {
+        
+        containerBottomView = UIView(frame: CGRect(x: 0,
+                                                 y: 0.8 * bounds.size.height,
+                                                 width: bounds.size.width,
+                                                 height: 0.20 * bounds.size.height))
+        
+        view.addSubview(containerBottomView)
+        
+        label2 = UILabel(frame: CGRect(x: (containerBottomView.frame.size.width - 250) / 2,
+                                       y: (containerBottomView.frame.size.height - 40) / 2,
+                                       width: 250,
+                                       height: 40))
+        
+        label2.font = UIFont.systemFont(ofSize: 25)
+   
+        label2.textAlignment = .center
+        
+        label2.text = finalName2
+        
+        containerBottomView.addSubview(label2)
         
     }
     
@@ -170,51 +250,43 @@ class GameViewControllerModel: UIViewController {
         
         print("Selected button with tag \(sender.tag)")
         
-        if (sender.currentTitle != nil) {
+        if (sender.currentImage != nil) {
             return
         }
         
-        var currentTitle = ""
-        
         if xPut {
             
-            sender.setTitle("X", for: .normal)
-            sender.setBackgroundImage(getImageWithColor(color: UIColor.blue,
-                                                        size: sender.frame.size),
-                                      for: .normal)
+            sender.setImage(UIImage(named: "XIconButton"), for: .normal)
+//            sender.setBackgroundImage(getImageWithColor(color: UIColor.blue,
+//                                                        size: sender.frame.size),
+//                                                        for: .normal)
             sender.index = 1
             xPut = false
             
-            currentTitle = "X"
+            currentImage = UIImage(named: "XIconButton")!
             
         } else {
             
-            sender.setTitle("O", for: .normal)
+            sender.setImage(UIImage(named: "OIconButton"), for: .normal)
             sender.index = 0
             xPut = true
             
-            currentTitle = "O"
+            currentImage = UIImage(named: "OIconButton")!
             
         }
         sender.isEnabled = false
-        checker(sender.tag, currentTitle)
+        checker(sender.tag, currentImage)
     }
     
-    func checker(_ tag: Int, _ currentTitle: String) {
-        
-        let winCombinations: Array<Array<Int>> = [
-            [1, 2, 3], [4, 5, 6], [7, 8, 9],
-            [1, 4, 7], [2, 5, 8], [3, 6 ,9],
-            [1, 5, 9], [3, 5, 7]
-        ]
+    func checker(_ tag: Int, _ currentImage: UIImage) {
         
         print("---------")
-        if currentTitle == "X" {
+        if currentImage == UIImage(named: "XIconButton")! {
             
             xNum.insert(tag, at: xNum.count)
             
             print("Insert in xNum \(tag) at \(xNum.count)")
-        } else if currentTitle == "O" {
+        } else if currentImage == UIImage(named: "OIconButton")! {
             
             oNum.insert(tag, at: oNum.count)
             
@@ -236,25 +308,37 @@ class GameViewControllerModel: UIViewController {
                 print("\(self.finalName1) won")
                 
                 scoreX += 1
-                displayOverlay()
                 
-                winOverlay?.text = "\(finalName1)   WON"
+                label1.text = "\(finalName1)    WINNER!"
+                containerTopView.backgroundColor = UIColor.green
+               
+                label2.text = "\(finalName2)    LOSER"
+                containerBottomView.backgroundColor = UIColor.red
                 
-                
+                  containerButtonView!.isUserInteractionEnabled = false
+//                displayOverlay()
+//                winOverlay?.text = "\(finalName1)   WON"
                 
             } else if winSet.isSubset(of: oSet) {
                 
                 print("\(self.finalName2) Won")
                 
                 scoreO += 1
-                displayOverlay()
-                winOverlay?.text = "\(finalName2)   WON"
                 
+                label1.text = "\(finalName1)    LOSER!"
+                containerTopView.backgroundColor = UIColor.red
+                
+                label2.text = "\(finalName2)    WINNER"
+                containerBottomView.backgroundColor = UIColor.green
+                
+//                displayOverlay()
+//                winOverlay?.text = "\(finalName2)   WON"
+                  containerButtonView!.isUserInteractionEnabled = false
             }
         }
         
-        label1.text = "\(finalName1)    \(scoreX)"
-        label2.text = "\(finalName2)    \(scoreO)"
+//        label1.text = "\(finalName1)    \(scoreX)"
+//        label2.text = "\(finalName2)    \(scoreO)"
         
     }
     
@@ -265,7 +349,7 @@ class GameViewControllerModel: UIViewController {
                                                width: bounds.size.width,
                                                height: containerButtonView!.frame.size.height))
         
-        winOverlay?.text = " Won"
+//        winOverlay?.text = " Won"
         winOverlay?.textAlignment = .center
         winOverlay?.font = UIFont.boldSystemFont(ofSize: 30)
         winOverlay?.backgroundColor = UIColor.black.withAlphaComponent(0.5)
@@ -278,38 +362,19 @@ class GameViewControllerModel: UIViewController {
         UIView.animate(withDuration: 1,
                        animations:{
                         self.winOverlay?.frame.origin.y = self.containerButtonView!.frame.origin.y
-                        
-        }
-        )
-        
+                        })
     }
     
-    func displayBottomView() {
-        
-        let containerView = UIView(frame: CGRect(x: 0,
-                                                 y: 0.8 * bounds.size.height,
-                                                 width: bounds.size.width,
-                                                 height: 0.20 * bounds.size.height))
-        
-//        containerView.backgroundColor = UIColor.green
-        view.addSubview(containerView)
-        
-        label2 = UILabel(frame: CGRect(x: (containerView.frame.size.width - 250) / 2,
-                                             y: (containerView.frame.size.height - 40) / 2,
-                                             width: 250,
-                                             height: 40))
-        
-        label2.font = UIFont.systemFont(ofSize: 25)
-//        label2.backgroundColor = UIColor.white
-        label2.textAlignment = .center
-        
-        containerView.addSubview(label2)
-        
-    }
-    
+    // MARK: - ResetGame
     func resetGame() {
         xNum.removeAll()
         oNum.removeAll()
+        
+        containerTopView.backgroundColor = UIColor.white
+        containerBottomView.backgroundColor = UIColor.white
+        
+        label1.text = "\(finalName1)    \(scoreX)"
+        label2.text = "\(finalName2)    \(scoreO)"
         
         for subview in containerButtonView!.subviews{
             subview.removeFromSuperview()
@@ -321,4 +386,5 @@ class GameViewControllerModel: UIViewController {
         
         displayCenterView()
     }
+    
 }

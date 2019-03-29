@@ -10,24 +10,16 @@ import UIKit
 
 class GameWithPlayerViewController: GameViewControllerModel {
 
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
      
-        view.backgroundColor = UIColor.cyan
-
+        displayTopView()
         displayCenterView()
         displayBottomView()
-        displayTopView()
         
-    }
-    
-    override func displayTopView() {
-        super.displayTopView()
-        
-        label1.text = finalName1
         print(label1.text!)
-        
-        label2.text = finalName2
         print(label2.text!)
     }
+    
 }

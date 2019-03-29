@@ -10,19 +10,7 @@ import UIKit
 
 class PlayerVsDeviceViewController: PlayerVsPlayerViewController {
     
-    override func viewDidLoad() {
-        labelTextFieldButonFrame()
-      
-    }
-    
-    override func labelTextFieldButonFrame() {
-        super.labelTextFieldButonFrame()
-        
-        label2.text = "Device   O"
-        namedLabel2.placeholder = "Insert Device Name"
-        name2 = "Device"
-    }
-    
+    //MARK: - override startButtonPressed
     @IBAction override func startButtonPressed(sender: Any) {
         guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "GameWithDeviceViewController") as? GameWithDeviceViewController else {
             print("Couldn't find to GameWithDeviceViewController")
@@ -35,4 +23,19 @@ class PlayerVsDeviceViewController: PlayerVsPlayerViewController {
         present(destinationVC, animated: true, completion: nil)
     }
     
+    //MARK: - viewDidLoad
+    override func viewDidLoad() {
+        
+        labelTextFieldButonFrame()
+        
+    }
+    
+    //MARK: - override labelTextFieldButonFrame
+    override func labelTextFieldButonFrame() {
+        super.labelTextFieldButonFrame()
+        
+        label2.text = "Device   O"
+        namedLabel2.placeholder = "Insert Device Name"
+        name2 = "Device"
+    }   
 }

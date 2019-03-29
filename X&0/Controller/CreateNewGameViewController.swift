@@ -22,8 +22,7 @@ class CreateNewGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        view.backgroundColor = UIColor.cyan
-        
+        view.backgroundColor = UIColor.white
         
     }
     

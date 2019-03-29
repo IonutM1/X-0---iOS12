@@ -11,7 +11,7 @@ import UIKit
 
 class PlayerVsPlayerViewController: TypeOfPlayerViewModel {
     
-    
+    //MARK: - override startButtonPressed
     @IBAction override func startButtonPressed(sender: Any) {
         
         guard let destinationVC = self.mainStoryboard.instantiateViewController(withIdentifier: "GameWithPlayerViewController") as? GameWithPlayerViewController else {
@@ -36,6 +36,7 @@ class PlayerVsPlayerViewController: TypeOfPlayerViewModel {
 //        vc.finalName = self.name
 //    }
     
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +44,7 @@ class PlayerVsPlayerViewController: TypeOfPlayerViewModel {
         
     }
     
+    // MARK: - override labelTextFieldButtonFrame
     override func labelTextFieldButonFrame() {
         super .labelTextFieldButonFrame()
         label2.text = "Player2  O"

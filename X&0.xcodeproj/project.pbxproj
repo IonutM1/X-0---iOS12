@@ -11,6 +11,7 @@
 		C606E67D2243F5E1000E9FF3 /* TypeOfPlayerViewControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C606E67C2243F5E1000E9FF3 /* TypeOfPlayerViewControllerModel.swift */; };
 		C606E67F224400BD000E9FF3 /* PlayerVsPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C606E67E224400BD000E9FF3 /* PlayerVsPlayerViewController.swift */; };
 		C606E6852244DBB0000E9FF3 /* X&OButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C606E6842244DBB0000E9FF3 /* X&OButton.swift */; };
+		C606E687224D0C19000E9FF3 /* SoundMP3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C606E686224D0C18000E9FF3 /* SoundMP3.mp3 */; };
 		C60CF48D223B95400022371A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60CF48C223B95400022371A /* AppDelegate.swift */; };
 		C60CF48F223B95400022371A /* CreateNewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60CF48E223B95400022371A /* CreateNewGameViewController.swift */; };
 		C60CF492223B95400022371A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C60CF490223B95400022371A /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 		C606E67C2243F5E1000E9FF3 /* TypeOfPlayerViewControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeOfPlayerViewControllerModel.swift; sourceTree = "<group>"; };
 		C606E67E224400BD000E9FF3 /* PlayerVsPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerVsPlayerViewController.swift; sourceTree = "<group>"; };
 		C606E6842244DBB0000E9FF3 /* X&OButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "X&OButton.swift"; sourceTree = "<group>"; };
+		C606E686224D0C18000E9FF3 /* SoundMP3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SoundMP3.mp3; sourceTree = "<group>"; };
 		C60CF489223B95400022371A /* X&0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "X&0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C60CF48C223B95400022371A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C60CF48E223B95400022371A /* CreateNewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewGameViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				C606E6722243EE30000E9FF3 /* Model */,
 				C606E6752243EE46000E9FF3 /* Controller */,
 				C60CF493223B95410022371A /* Assets.xcassets */,
+				C606E686224D0C18000E9FF3 /* SoundMP3.mp3 */,
 				C60CF495223B95410022371A /* LaunchScreen.storyboard */,
 				C60CF498223B95410022371A /* Info.plist */,
 			);
@@ -171,6 +174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C60CF497223B95410022371A /* LaunchScreen.storyboard in Resources */,
+				C606E687224D0C19000E9FF3 /* SoundMP3.mp3 in Resources */,
 				C60CF494223B95410022371A /* Assets.xcassets in Resources */,
 				C60CF492223B95400022371A /* Main.storyboard in Resources */,
 			);
