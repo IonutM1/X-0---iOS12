@@ -18,19 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iVb-RN-AHq">
-                                <rect key="frame" x="20" y="475" width="374" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="ySC-Rm-IpD"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                <state key="normal" title="New Game">
-                                    <color key="titleColor" red="1" green="0.34760597900000001" blue="0.29569744879999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                                <connections>
-                                    <segue destination="xgF-W6-4cc" kind="presentation" modalTransitionStyle="crossDissolve" id="9iG-48-g4R"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ImageView" translatesAutoresizingMaskIntoConstraints="NO" id="DGv-7f-9fB" userLabel="Logo">
                                 <rect key="frame" x="0.0" y="20" width="414" height="355"/>
                                 <constraints>
@@ -41,10 +28,7 @@
                         <constraints>
                             <constraint firstItem="DGv-7f-9fB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Bm4-jR-QnX"/>
                             <constraint firstItem="DGv-7f-9fB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CcF-hx-Sha"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iVb-RN-AHq" secondAttribute="trailing" constant="20" id="Mkh-Ch-Ufb"/>
-                            <constraint firstItem="iVb-RN-AHq" firstAttribute="top" secondItem="DGv-7f-9fB" secondAttribute="bottom" constant="100" id="S4j-QJ-tRt"/>
                             <constraint firstItem="DGv-7f-9fB" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Zld-Lc-Ghy"/>
-                            <constraint firstItem="iVb-RN-AHq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="ncf-Rg-Tbx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -79,9 +63,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Sa9-Q1-cNN"/>
                     </view>
-                    <connections>
-                        <segue destination="04Q-1H-1bJ" kind="presentation" identifier="GameWithPlayer" id="XTp-64-3dp"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="acd-Yy-VPC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

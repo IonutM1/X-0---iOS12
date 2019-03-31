@@ -19,6 +19,7 @@ class GameWithDeviceViewController: GameViewControllerModel {
             return
         }
         
+        dismiss(animated: true, completion: nil)
         destinationVC.modalTransitionStyle = .flipHorizontal
         present(destinationVC, animated: true, completion: nil)
         

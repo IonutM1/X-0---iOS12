@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class TypeOfPlayerViewModel: UIViewController {
     
@@ -31,10 +32,11 @@ class TypeOfPlayerViewModel: UIViewController {
     @IBAction func backButtonPressed(sender: Any) {
         
         guard let destinationVC = mainStoryboard.instantiateViewController(withIdentifier: "HowYouPlayViewController") as? HowYouPlayViewController else {
-            print("Couldn't find to HowToPlayViewController")
+            print("Couldn't find to HowYouPlayViewController")
             return
         }
-        
+       
+        dismiss(animated: true, completion: nil)
         destinationVC.modalTransitionStyle = .flipHorizontal
         present(destinationVC, animated: true, completion: nil)
         
@@ -193,14 +195,15 @@ class TypeOfPlayerViewModel: UIViewController {
         containerView.addSubview(okButtonForPlayer2)
         
         // Set startButton
-        let startButton = UIButton(frame: CGRect(x: containerView.frame.size.width - 110,
-                                                y: containerView.frame.size.height - 50,
-                                                width: 100,
+        let startButton = UIButton(frame: CGRect(x: (containerView.frame.size.width - 140) / 2,
+                                                y: namedLabel2.frame.origin.y + 140,
+                                                width: 140,
                                                 height: 40))
         startButton.setTitle("Start", for: .normal)
         startButton.setTitleColor(UIColor.black, for: .normal)
         startButton.setTitleColor(UIColor.white, for: .highlighted)
-        
+        startButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+        startButton.backgroundColor = #colorLiteral(red: 0.4156862745, green: 1, blue: 0.6, alpha: 1)
         startButton.layer.borderColor = UIColor.black.cgColor
         startButton.layer.borderWidth = 1
         startButton.layer.cornerRadius = 20

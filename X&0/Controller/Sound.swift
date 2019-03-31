@@ -6,8 +6,26 @@
 //  Copyright © 2019 Ionut Marinica. All rights reserved.
 //
 
-import UIKit
+import AVFoundation
 
 class Sound: AVAudioPlayer {
 
+    private var player: AVAudioPlayer?
+    private let path = Bundle.main.path(forResource: "SoundMP3", ofType: "mp3")
+    
+    func soundOn() {
+        
+        player = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: path!), fileTypeHint: "mp3")
+        
+        player?.play()
+    }
+    
+    func soundOff() {
+        
+        player = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: path!), fileTypeHint: "mp3")
+        
+        player?.stop()
+    }
+    
+  
 }

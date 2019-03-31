@@ -6,13 +6,14 @@
 //  Copyright © 2019 Ionut Marinica. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import AVFoundation
 
 class GameViewControllerModel: UIViewController {
     
-
+    let player = Sound()
+    var sound = UIButton()
+    
     var xPut = true
     
     var containerButtonView: UIView?
@@ -50,7 +51,7 @@ class GameViewControllerModel: UIViewController {
         [0, 4, 8], [2, 4, 6]
     ]
     
-    var player: AVAudioPlayer?
+   
     
     // MARK: - ButtonPressed
     @IBAction func buttonNewGamePressed(sender: Any) {
@@ -59,7 +60,8 @@ class GameViewControllerModel: UIViewController {
             print("Couldn't find to HowYouPlayViewController")
             return
         }
-
+        
+        dismiss(animated: true, completion: nil)
         destinationVC.modalTransitionStyle = .flipHorizontal
         present(destinationVC, animated: true, completion: nil)
 //        navigationController?.pushViewController(destinationVC, animated: true)
@@ -71,20 +73,19 @@ class GameViewControllerModel: UIViewController {
         resetGame()
     }
     
-    // Sound MP3
-    @IBAction func soundButtonPressed(sender: Any) {
+    @IBAction func soundOnButtonPressed(sender: Any) {
         
-        if let path = Bundle.main.path(forResource: "SoundMP3", ofType: "mp3") {
-            player = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: path), fileTypeHint: "mp3")
-            
-            if let sound = player {
-//                sound.prepareToPlay()
-                sound.play()
-                
-            }
-        }else {
-            print("no sound")
-        }
+        player.soundOn()
+        
+        sound.isUserInteractionEnabled = false
+        
+    }
+    
+    @IBAction func soundOffButtonPressed(sender: Any) {
+        
+        player.soundOff()
+        
+        sound.isUserInteractionEnabled = true
         
     }
     
@@ -97,59 +98,14 @@ class GameViewControllerModel: UIViewController {
                                                  width: bounds.size.width,
                                                  height: 0.20 * bounds.size.height))
         
-//        containerView.backgroundColor = UIColor.gray
+//        containerTopView.backgroundColor = UIColor.gray
         view.addSubview(containerTopView)
-        
-        let newGame = UIButton(frame: CGRect(x: 10,
-                                             y: 0.036 * bounds.size.height,
-                                             width: 100,
-                                             height: 34))
-        
-        newGame.setTitle("New game", for: .normal)
-        newGame.setTitleColor(UIColor.black, for: .normal)
-        newGame.setTitleColor(UIColor.white, for: .highlighted)
-        newGame.backgroundColor = UIColor.white
-        newGame.layer.borderWidth = 1
-        newGame.layer.borderColor = UIColor.black.cgColor
-        newGame.layer.cornerRadius = 17
-        
-        newGame.addTarget(self, action: #selector(buttonNewGamePressed(sender:)), for: .touchUpInside)
-        containerTopView.addSubview(newGame)
-        
-        let sound = UIButton(frame: CGRect(x: (containerTopView.frame.size.width - 50) / 2,
-                                           y: 0.036 * bounds.size.height,
-                                           width: 50,
-                                           height: 34))
-        
-        sound.setImage(UIImage(named: "SoundIcon"), for: .normal)
-//        sound.layer.borderWidth = 1
-//        sound.layer.borderColor = UIColor.black.cgColor
-//        sound.layer.cornerRadius = 17
-        sound.contentMode = .scaleAspectFill
-        
-        sound.addTarget(self, action: #selector(soundButtonPressed(sender:)), for: .touchUpInside)
-        containerTopView.addSubview(sound)
-        
-        let resetGame = UIButton(frame: CGRect(x: containerTopView.frame.size.width - 110,
-                                               y: 0.036 * bounds.size.height,
-                                               width: 100,
-                                               height: 34))
-        
-        resetGame.setTitle("Reset", for: .normal)
-        resetGame.setTitleColor(UIColor.black, for: .normal)
-        resetGame.setTitleColor(UIColor.white, for: .highlighted)
-        resetGame.backgroundColor = UIColor.white
-        resetGame.layer.borderWidth = 1
-        resetGame.layer.borderColor = UIColor.black.cgColor
-        resetGame.layer.cornerRadius = 17
-        
-        resetGame.addTarget(self, action: #selector(resetGameButtonPressed(sender:)), for: .touchUpInside)
-        containerTopView.addSubview(resetGame)
+
         
         label1 = UILabel(frame: CGRect(x: (containerTopView.frame.size.width - 250) / 2,
-                                                 y: (containerTopView.frame.size.height - newGame.frame.origin.y + 34) / 2,
-                                                 width: 250,
-                                                 height: 40))
+                                       y: (containerTopView.frame.size.height - (0.036 * bounds.size.height)) / 2,
+                                       width: 250,
+                                       height: 40))
         label1.textAlignment = .center
         label1.font = UIFont.systemFont(ofSize: 25)
 //        label1.textColor = UIColor.black
@@ -217,7 +173,7 @@ class GameViewControllerModel: UIViewController {
         view.addSubview(containerBottomView)
         
         label2 = UILabel(frame: CGRect(x: (containerBottomView.frame.size.width - 250) / 2,
-                                       y: (containerBottomView.frame.size.height - 40) / 2,
+                                       y: (containerBottomView.frame.size.height - 80) / 2,
                                        width: 250,
                                        height: 40))
         
@@ -228,6 +184,40 @@ class GameViewControllerModel: UIViewController {
         label2.text = finalName2
         
         containerBottomView.addSubview(label2)
+        
+        let newGame = UIButton(frame: CGRect(x: 10,
+                                             y: containerBottomView.frame.height - (0.020 * bounds.size.height + 34),
+                                             width: 100,
+                                             height: 34))
+        
+        newGame.setTitle("New game", for: .normal)
+        newGame.setTitleColor(UIColor.black, for: .normal)
+        newGame.setTitleColor(UIColor.white, for: .highlighted)
+        newGame.backgroundColor = UIColor.white
+        newGame.layer.borderWidth = 1
+        newGame.layer.borderColor = UIColor.black.cgColor
+        newGame.layer.cornerRadius = 17
+        
+        newGame.addTarget(self, action: #selector(buttonNewGamePressed(sender:)), for: .touchUpInside)
+        
+        containerBottomView.addSubview(newGame)
+        
+        let resetGame = UIButton(frame: CGRect(x: containerTopView.frame.size.width - 110,
+                                               y: containerBottomView.frame.height - (0.020 * bounds.size.height + 34),
+                                               width: 100,
+                                               height: 34))
+        
+        resetGame.setTitle("Reset", for: .normal)
+        resetGame.setTitleColor(UIColor.black, for: .normal)
+        resetGame.setTitleColor(UIColor.white, for: .highlighted)
+        resetGame.backgroundColor = UIColor.white
+        resetGame.layer.borderWidth = 1
+        resetGame.layer.borderColor = UIColor.black.cgColor
+        resetGame.layer.cornerRadius = 17
+        
+        resetGame.addTarget(self, action: #selector(resetGameButtonPressed(sender:)), for: .touchUpInside)
+        
+        containerBottomView.addSubview(resetGame)
         
     }
     
