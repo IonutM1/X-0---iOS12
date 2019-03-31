@@ -15,8 +15,8 @@ class GameViewControllerModel: UIViewController {
     var sound = UIButton()
     
     var xPut = true
+    var equal = true
     
-    var containerButtonView: UIView?
     // X & O Numbers
     var xNum: Array<Int> = []
     var oNum: Array<Int> = []
@@ -30,10 +30,16 @@ class GameViewControllerModel: UIViewController {
     var scoreX = 0
     var scoreO = 0
     var winOverlay: UILabel?
+    var winOverlay2: UILabel?
+    var equalOverlay: UILabel?
+    
+    let colorGreen = #colorLiteral(red: 0.3019607843, green: 1, blue: 0.5333333333, alpha: 1)
+    let colorRed = #colorLiteral(red: 1, green: 0.3019607843, blue: 0.3019607843, alpha: 1)
     
     @IBOutlet var label1: UILabel!
     @IBOutlet var label2: UILabel!
     
+    var containerButtonView: UIView?
     var containerTopView = UIView()
     var containerBottomView = UIView()
     
@@ -51,6 +57,15 @@ class GameViewControllerModel: UIViewController {
         [0, 4, 8], [2, 4, 6]
     ]
     
+//    let equalCombinations: Array<Array<Int>> = [
+//        [0, 1], [0, 2], [1, 2],
+//        [0, 3], [0, 6], [0, 4], [0, 8],
+//        [1, 4], [1, 7], [2, 5], [2, 8],
+//        [2, 4], []
+//
+//
+//    ]
+    
    
     
     // MARK: - ButtonPressed
@@ -65,6 +80,8 @@ class GameViewControllerModel: UIViewController {
         destinationVC.modalTransitionStyle = .flipHorizontal
         present(destinationVC, animated: true, completion: nil)
 //        navigationController?.pushViewController(destinationVC, animated: true)
+        
+        
         
     }
     
@@ -102,9 +119,9 @@ class GameViewControllerModel: UIViewController {
         view.addSubview(containerTopView)
 
         
-        label1 = UILabel(frame: CGRect(x: (containerTopView.frame.size.width - 250) / 2,
+        label1 = UILabel(frame: CGRect(x: (containerTopView.frame.size.width - 300) / 2,
                                        y: (containerTopView.frame.size.height - (0.036 * bounds.size.height)) / 2,
-                                       width: 250,
+                                       width: 300,
                                        height: 40))
         label1.textAlignment = .center
         label1.font = UIFont.systemFont(ofSize: 25)
@@ -172,9 +189,9 @@ class GameViewControllerModel: UIViewController {
         
         view.addSubview(containerBottomView)
         
-        label2 = UILabel(frame: CGRect(x: (containerBottomView.frame.size.width - 250) / 2,
+        label2 = UILabel(frame: CGRect(x: (containerBottomView.frame.size.width - 300) / 2,
                                        y: (containerBottomView.frame.size.height - 80) / 2,
-                                       width: 250,
+                                       width: 300,
                                        height: 40))
         
         label2.font = UIFont.systemFont(ofSize: 25)
@@ -292,73 +309,132 @@ class GameViewControllerModel: UIViewController {
         for winCombination in winCombinations {
             
             let winSet = Set(winCombination)
-            
+           
             if(winSet.isSubset(of: xSet)){
+                
+                displayOverlay()
+                equal = false
                 
                 print("\(self.finalName1) won")
                 
                 scoreX += 1
                 
-                label1.text = "\(finalName1)    WINNER!"
-                containerTopView.backgroundColor = UIColor.green
+                label1.text = "\(finalName1)    GREAT!"
+                
+                containerTopView.backgroundColor = colorGreen
                
-                label2.text = "\(finalName2)    LOSER"
-                containerBottomView.backgroundColor = UIColor.red
+                label2.text = "\(finalName2)    TRY AGAIN!"
+                containerBottomView.backgroundColor = colorRed
+            
+                winOverlay?.text = "WINNER!"
+                winOverlay?.textColor = colorGreen
+                winOverlay?.font = UIFont.boldSystemFont(ofSize: 80)
                 
-                  containerButtonView!.isUserInteractionEnabled = false
-//                displayOverlay()
-//                winOverlay?.text = "\(finalName1)   WON"
-                
+                winOverlay2?.text = "LOSER!"
+                winOverlay2?.textColor = colorRed
+                winOverlay2?.font = UIFont.boldSystemFont(ofSize: 50)
             } else if winSet.isSubset(of: oSet) {
+              
+                displayOverlay()
+                
+                equal = false
                 
                 print("\(self.finalName2) Won")
                 
                 scoreO += 1
                 
-                label1.text = "\(finalName1)    LOSER!"
-                containerTopView.backgroundColor = UIColor.red
+                label1.text = "\(finalName1)    TRY AGAIN!"
                 
-                label2.text = "\(finalName2)    WINNER"
-                containerBottomView.backgroundColor = UIColor.green
+                containerTopView.backgroundColor = colorRed
                 
-//                displayOverlay()
-//                winOverlay?.text = "\(finalName2)   WON"
-                  containerButtonView!.isUserInteractionEnabled = false
+                label2.text = "\(finalName2)    GREAT!"
+                containerBottomView.backgroundColor = colorGreen
+                
+                winOverlay?.text = "LOSER"
+                winOverlay?.textColor = colorRed
+                winOverlay?.font = UIFont.boldSystemFont(ofSize: 50)
+                
+                winOverlay2?.text = "WINNER!"
+                winOverlay2?.textColor = colorGreen
+                winOverlay2?.font = UIFont.boldSystemFont(ofSize: 80)
+                
             }
+            
         }
-        
-//        label1.text = "\(finalName1)    \(scoreX)"
-//        label2.text = "\(finalName2)    \(scoreO)"
+        if equal == true && (xNum.count == 5 || oNum.count == 5){
+            
+            print("equal")
+            displayEqualOverlay()
+            equalOverlay?.text = "EQUAL!"
+            equalOverlay?.textColor = UIColor.white
+            equalOverlay?.font = UIFont.boldSystemFont(ofSize: 70)
+            
+        }
         
     }
     
     func displayOverlay() {
         
         winOverlay = UILabel(frame: CGRect(x: 0,
-                                               y: bounds.size.height,
+                                               y: bounds.size.height - bounds.size.height,
                                                width: bounds.size.width,
-                                               height: containerButtonView!.frame.size.height))
+                                               height: containerButtonView!.frame.size.height / 2))
         
-//        winOverlay?.text = " Won"
         winOverlay?.textAlignment = .center
-        winOverlay?.font = UIFont.boldSystemFont(ofSize: 30)
-        winOverlay?.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        winOverlay?.textColor = UIColor.white
         
-        containerButtonView!.isUserInteractionEnabled = false
+        winOverlay?.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        winOverlay?.shadowColor = UIColor.white
         
         view.addSubview(winOverlay!)
         
-        UIView.animate(withDuration: 1,
+        UIView.animate(withDuration: 1.5,
                        animations:{
                         self.winOverlay?.frame.origin.y = self.containerButtonView!.frame.origin.y
                         })
+        
+        winOverlay2 = UILabel(frame: CGRect(x: 0,
+                                           y: bounds.size.height,
+                                           width: bounds.size.width,
+                                           height: containerButtonView!.frame.size.height / 2))
+        
+        winOverlay2?.textAlignment = .center
+        
+        winOverlay2?.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+
+        winOverlay2?.shadowColor = UIColor.white
+        
+        view.addSubview(winOverlay2!)
+        
+        UIView.animate(withDuration: 1.5,
+                       animations: {self.winOverlay2?.frame.origin.y = 0.50 * self.bounds.size.height})
+      
+        containerButtonView!.isUserInteractionEnabled = false
+        
+    }
+    
+    func displayEqualOverlay(){
+        equalOverlay = UILabel(frame: CGRect(x: 0,
+                                     y: bounds.size.height - bounds.size.height,
+                                     width: bounds.size.width,
+                                     height: containerButtonView!.frame.size.height))
+        
+        equalOverlay?.textAlignment = .center
+
+        equalOverlay?.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        view.addSubview(equalOverlay!)
+        
+        UIView.animate(withDuration: 1.5,
+                       animations: {self.equalOverlay?.frame.origin.y = self.containerButtonView!.frame.origin.y})
+        
+        containerButtonView!.isUserInteractionEnabled = false
+        
     }
     
     // MARK: - ResetGame
     func resetGame() {
         xNum.removeAll()
         oNum.removeAll()
+        equal = true
         
         containerTopView.backgroundColor = UIColor.white
         containerBottomView.backgroundColor = UIColor.white

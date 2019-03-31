@@ -53,7 +53,7 @@ class CreateNewGameViewController: UIViewController {
         newGameButton.setTitle("New Game", for: .normal)
         newGameButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
 
-        newGameButton.setTitleColor(UIColor.red, for: .normal)
+        newGameButton.setTitleColor(#colorLiteral(red: 1, green: 0.3019607843, blue: 0.3019607843, alpha: 1), for: .normal)
         newGameButton.setTitleColor(UIColor.black, for: .highlighted)
         newGameButton.addTarget(self, action: #selector(newGameButtonPressed(sender:)), for: .touchUpInside)
         view.addSubview(newGameButton)

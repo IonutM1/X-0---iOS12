@@ -16,6 +16,8 @@ class HowYouPlayViewController: UIViewController {
     var sound = UIButton()
     var soundOff = UIButton()
     
+    let colorForButton = #colorLiteral(red: 0.5142127872, green: 0.8756996393, blue: 1, alpha: 1)
+    
     let bounds = UIScreen.main.bounds
     let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
     
@@ -71,20 +73,19 @@ class HowYouPlayViewController: UIViewController {
         
         player.soundOn()
         print("Sound On")
-//        player.numberOfLoops = -1
+
+        
         
         sound.isUserInteractionEnabled = false
     }
     // Sound OFF
     @IBAction func soundButtonOffPressed(sender: Any) {
     
-        
         player.soundOff()
         print("Sound Off")
         
         sound.isUserInteractionEnabled = true
     }
-    
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -121,30 +122,38 @@ class HowYouPlayViewController: UIViewController {
         view.addSubview(howYouPlay)
         
         let playerVsPlayer = UIButton(frame: CGRect(x: (bounds.size.width - 250) / 2,
-                                                    y: (bounds.size.height - 100) / 2,
+                                                    y: (bounds.size.height - 200) / 2,
                                                     width: 250,
-                                                    height: 40))
+                                                    height: 50))
         playerVsPlayer.setTitle("Player vs Player", for: .normal)
         playerVsPlayer.setTitleColor(UIColor.black, for: .normal)
-        playerVsPlayer.setTitleColor(UIColor.red, for: .highlighted)
+        playerVsPlayer.setTitleColor(UIColor.white, for: .highlighted)
+        playerVsPlayer.setTitleShadowColor(UIColor.black, for: .normal)
         playerVsPlayer.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-        playerVsPlayer.layer.borderWidth = 1
-        playerVsPlayer.layer.borderColor = UIColor.black.cgColor
+//        playerVsPlayer.layer.borderWidth = 1
+//        playerVsPlayer.layer.borderColor = UIColor.black.cgColor
+        playerVsPlayer.layer.cornerRadius = 20
+        playerVsPlayer.backgroundColor = colorForButton
+        
+        
         
         playerVsPlayer.addTarget(self, action: #selector(buttonPressedWithPlayer(sender:)), for: .touchUpInside)
         
         view.addSubview(playerVsPlayer)
         
         let playerVsDevice = UIButton(frame: CGRect(x: (bounds.size.width - 250) / 2,
-                                                    y: (bounds.size.height + 100 ) / 2,
+                                                    y: (bounds.size.height + 160 ) / 2,
                                                     width: 250,
-                                                    height: 40))
+                                                    height: 50))
         playerVsDevice.setTitle("Player vs Device", for: .normal)
         playerVsDevice.setTitleColor(UIColor.black, for: .normal)
-        playerVsDevice.setTitleColor(UIColor.red, for: .highlighted)
+        playerVsDevice.setTitleColor(UIColor.white, for: .highlighted)
+        playerVsDevice.setTitleShadowColor(UIColor.black, for: .normal)
         playerVsDevice.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-        playerVsDevice.layer.borderWidth = 1
-        playerVsDevice.layer.borderColor = UIColor.black.cgColor
+//        playerVsDevice.layer.borderWidth = 1
+//        playerVsDevice.layer.borderColor = UIColor.black.cgColor
+        playerVsDevice.layer.cornerRadius = 20
+        playerVsDevice.backgroundColor = colorForButton
         playerVsDevice.addTarget(self, action: #selector(buttonPressedWithDevice(sender:)), for: .touchUpInside)
         view.addSubview(playerVsDevice)
         

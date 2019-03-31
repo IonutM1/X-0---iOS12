@@ -10,6 +10,7 @@ import AVFoundation
 
 class Sound: AVAudioPlayer {
 
+    
     private var player: AVAudioPlayer?
     private let path = Bundle.main.path(forResource: "SoundMP3", ofType: "mp3")
     
@@ -18,6 +19,8 @@ class Sound: AVAudioPlayer {
         player = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: path!), fileTypeHint: "mp3")
         
         player?.play()
+        player?.numberOfLoops = -1
+        
     }
     
     func soundOff() {

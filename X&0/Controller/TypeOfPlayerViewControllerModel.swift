@@ -72,6 +72,13 @@ class TypeOfPlayerViewModel: UIViewController {
         // Set name player when okButtonPressed
         label2.text = name2 + " - O"
         namedLabel2.text = ""
+        
+        // Set name player1 when okButton2Pressed
+        namedLabel1.placeholder = namedLabel1.text
+        name1 = namedLabel1.placeholder!
+        label1.text = name1 + " - X"
+        namedLabel1.text = ""
+        
         print("OK button 2 pressed")
         
     }
@@ -96,7 +103,6 @@ class TypeOfPlayerViewModel: UIViewController {
         
         backButton.setImage(UIImage(named: "BackIcon"), for: .normal)
         backButton.contentMode = .scaleAspectFill
-        
         backButton.addTarget(self, action: #selector(backButtonPressed(sender:)), for: .touchUpInside)
         
         containerView.addSubview(backButton)
@@ -129,7 +135,7 @@ class TypeOfPlayerViewModel: UIViewController {
         
         let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(tapedOnText1))
         tapGesture1.numberOfTapsRequired = 1
-        
+    
         namedLabel1.addGestureRecognizer(tapGesture1)
         containerView.addSubview(namedLabel1)
         
@@ -145,15 +151,14 @@ class TypeOfPlayerViewModel: UIViewController {
         
         okButtonForPlayer1.addTarget(self, action: #selector(okButton1Pressed(sender:)), for: .touchUpInside)
         
-        containerView.addSubview(okButtonForPlayer1)
+//        containerView.addSubview(okButtonForPlayer1)
         
         // Set label2
         label2 = UILabel(frame: CGRect(x: (containerView.frame.size.width - 250) / 2,
                                              y: 0.4 * containerView.frame.size.height,
                                              width: 250,
                                              height: 40))
-        
-//        label2.text = "Player2    O"
+    
         label2.textAlignment = .center
         label2.font = UIFont.boldSystemFont(ofSize: 30)
         
@@ -196,16 +201,17 @@ class TypeOfPlayerViewModel: UIViewController {
         
         // Set startButton
         let startButton = UIButton(frame: CGRect(x: (containerView.frame.size.width - 140) / 2,
-                                                y: namedLabel2.frame.origin.y + 140,
+                                                y: containerView.frame.size.height - 224,
                                                 width: 140,
-                                                height: 40))
+                                                height: 50))
         startButton.setTitle("Start", for: .normal)
         startButton.setTitleColor(UIColor.black, for: .normal)
         startButton.setTitleColor(UIColor.white, for: .highlighted)
+        startButton.setTitleShadowColor(UIColor.black, for: .normal)
         startButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-        startButton.backgroundColor = #colorLiteral(red: 0.4156862745, green: 1, blue: 0.6, alpha: 1)
-        startButton.layer.borderColor = UIColor.black.cgColor
-        startButton.layer.borderWidth = 1
+        startButton.backgroundColor = #colorLiteral(red: 0.3019607843, green: 1, blue: 0.5333333333, alpha: 1)
+//        startButton.layer.borderColor = UIColor.black.cgColor
+//        startButton.layer.borderWidth = 1
         startButton.layer.cornerRadius = 20
         
         startButton.addTarget(self, action: #selector(startButtonPressed(sender:)), for: .touchUpInside)
@@ -236,7 +242,7 @@ class TypeOfPlayerViewModel: UIViewController {
     @objc func tapedOnText2() {
         
         namedLabel2.becomeFirstResponder()
-        
+
         namedLabel2.placeholder = namedLabel2.text
         name2 = namedLabel2.placeholder!
     
