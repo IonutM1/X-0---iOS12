@@ -11,10 +11,10 @@ import AVFoundation
 
 class HowYouPlayViewController: UIViewController {
     
-//    var player: AVAudioPlayer?
     let player = Sound()
     var sound = UIButton()
-    var soundOff = UIButton()
+
+    var soundON = false
     
     let colorForButton = #colorLiteral(red: 0.5142127872, green: 0.8756996393, blue: 1, alpha: 1)
     
@@ -44,7 +44,6 @@ class HowYouPlayViewController: UIViewController {
             print("Couldn't find to PlayerVsPlayerViewController")
             return
         }
-        
 
         destinationVC.modalTransitionStyle = .crossDissolve
         present(destinationVC, animated: true, completion: nil)
@@ -61,30 +60,32 @@ class HowYouPlayViewController: UIViewController {
             return
         }
         
-        
         destinationVC.modalTransitionStyle = .crossDissolve
         present(destinationVC, animated: true, completion: nil)
         
 //        navigationController?.pushViewController(destinationVC, animated: true)
     }
     
-    // Sound MP3
+    // Sound On/Off
     @IBAction func soundButtonPressed(sender: Any) {
         
-        player.soundOn()
-        print("Sound On")
-
+        if soundON == false {
+            
+            player.soundOn()
+            print("SoundOn")
+            sound.setImage(UIImage(named: "SoundIcon"), for: .normal)
+            
+            soundON = true
+            
+        }else if soundON == true {
+            
+            player.soundOff()
+            print("SoundOff")
+            sound.setImage(UIImage(named: "SoundOffIcon"), for: .normal)
+            soundON = false
+            
+        }
         
-        
-        sound.isUserInteractionEnabled = false
-    }
-    // Sound OFF
-    @IBAction func soundButtonOffPressed(sender: Any) {
-    
-        player.soundOff()
-        print("Sound Off")
-        
-        sound.isUserInteractionEnabled = true
     }
     
     // MARK: - viewDidLoad
@@ -157,26 +158,17 @@ class HowYouPlayViewController: UIViewController {
         playerVsDevice.addTarget(self, action: #selector(buttonPressedWithDevice(sender:)), for: .touchUpInside)
         view.addSubview(playerVsDevice)
         
-        sound = UIButton(frame: CGRect(x: bounds.size.width - 90,
+        sound = UIButton(frame: CGRect(x: bounds.size.width - 60,
                                        y: 0.036 * bounds.size.height,
-                                       width: 40,
+                                       width: 50,
                                        height: 50))
         
-        sound.setImage(UIImage(named: "SoundIcon"), for: .normal)
+//        sound.setImage(UIImage(named: "SoundIcon"), for: .normal)
+        sound.setImage(UIImage(named: "SoundOffIcon"), for: .normal)
         sound.contentMode = .scaleAspectFill
         
         sound.addTarget(self, action: #selector(soundButtonPressed(sender:)), for: .touchUpInside)
         view.addSubview(sound)
-        
-        soundOff = UIButton(frame: CGRect(x: bounds.size.width - 45,
-                                          y: 0.036 * bounds.size.height,
-                                          width: 40,
-                                          height: 50))
-        soundOff.setImage(UIImage(named: "SoundOffIcon"), for: .normal)
-        soundOff.contentMode = .scaleAspectFill
-        
-        soundOff.addTarget(self, action: #selector(soundButtonOffPressed(sender:)), for: .touchUpInside)
-        view.addSubview(soundOff)
         
     }
   

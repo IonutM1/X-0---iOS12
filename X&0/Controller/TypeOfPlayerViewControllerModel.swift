@@ -136,6 +136,7 @@ class TypeOfPlayerViewModel: UIViewController {
         let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(tapedOnText1))
         tapGesture1.numberOfTapsRequired = 1
     
+        
         namedLabel1.addGestureRecognizer(tapGesture1)
         containerView.addSubview(namedLabel1)
         
