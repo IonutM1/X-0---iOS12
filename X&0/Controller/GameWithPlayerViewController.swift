@@ -14,6 +14,8 @@ class GameWithPlayerViewController: GameViewControllerModel {
     override func viewDidLoad() {
         super.viewDidLoad()
      
+
+        
         displayTopView()
         displayCenterView()
         displayBottomView()

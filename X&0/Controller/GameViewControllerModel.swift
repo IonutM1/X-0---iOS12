@@ -35,6 +35,7 @@ class GameViewControllerModel: UIViewController {
     
     let colorGreen = #colorLiteral(red: 0.3019607843, green: 1, blue: 0.5333333333, alpha: 1)
     let colorRed = #colorLiteral(red: 1, green: 0.3019607843, blue: 0.3019607843, alpha: 1)
+    let colorForPlayerIsTurn = #colorLiteral(red: 0.5142127872, green: 0.8756996393, blue: 1, alpha: 1)
     
     @IBOutlet var label1: UILabel!
     @IBOutlet var label2: UILabel!
@@ -57,17 +58,6 @@ class GameViewControllerModel: UIViewController {
         [0, 4, 8], [2, 4, 6]
     ]
     
-//    let equalCombinations: Array<Array<Int>> = [
-//        [0, 1], [0, 2], [1, 2],
-//        [0, 3], [0, 6], [0, 4], [0, 8],
-//        [1, 4], [1, 7], [2, 5], [2, 8],
-//        [2, 4], []
-//
-//
-//    ]
-    
-   
-    
     // MARK: - ButtonPressed
     @IBAction func buttonNewGamePressed(sender: Any) {
         
@@ -80,8 +70,6 @@ class GameViewControllerModel: UIViewController {
         destinationVC.modalTransitionStyle = .flipHorizontal
         present(destinationVC, animated: true, completion: nil)
 //        navigationController?.pushViewController(destinationVC, animated: true)
-        
-        
         
     }
     
@@ -115,7 +103,8 @@ class GameViewControllerModel: UIViewController {
                                                  width: bounds.size.width,
                                                  height: 0.20 * bounds.size.height))
         
-//        containerTopView.backgroundColor = UIColor.gray
+        
+//        containerTopView.backgroundColor = #colorLiteral(red: 1, green: 0.7175391912, blue: 0.4974026084, alpha: 1)
         view.addSubview(containerTopView)
 
         
@@ -125,8 +114,9 @@ class GameViewControllerModel: UIViewController {
                                        height: 40))
         label1.textAlignment = .center
         label1.font = UIFont.systemFont(ofSize: 25)
-//        label1.textColor = UIColor.black
-//        label1.backgroundColor = UIColor.white
+        label1.layer.cornerRadius = 20
+        label1.layer.backgroundColor = colorForPlayerIsTurn.cgColor
+        
         label1.text = finalName1
         containerTopView.addSubview(label1)
     }
@@ -164,6 +154,7 @@ class GameViewControllerModel: UIViewController {
             
                 button.setBackgroundImage(buttonImage, for: .normal)
                 button.layer.borderWidth = 8
+                
                 button.layer.borderColor = UIColor.black.cgColor
               
                 
@@ -183,7 +174,7 @@ class GameViewControllerModel: UIViewController {
     func displayBottomView() {
         
         containerBottomView = UIView(frame: CGRect(x: 0,
-                                                 y: 0.8 * bounds.size.height,
+                                                 y: 0.80 * bounds.size.height,
                                                  width: bounds.size.width,
                                                  height: 0.20 * bounds.size.height))
         
@@ -195,7 +186,9 @@ class GameViewControllerModel: UIViewController {
                                        height: 40))
         
         label2.font = UIFont.systemFont(ofSize: 25)
-   
+        label2.layer.cornerRadius = 20
+
+        
         label2.textAlignment = .center
         
         label2.text = finalName2
@@ -268,18 +261,27 @@ class GameViewControllerModel: UIViewController {
 //                                                        size: sender.frame.size),
 //                                                        for: .normal)
             sender.index = 1
-            xPut = false
             
+            
+            
+            label1.layer.backgroundColor = UIColor.white.cgColor
             currentImage = UIImage(named: "XIconButton")!
             
+            xPut = false
+        
+            label2.layer.backgroundColor = colorForPlayerIsTurn.cgColor
         } else {
             
             sender.setImage(UIImage(named: "OIconButton"), for: .normal)
             sender.index = 0
-            xPut = true
+            
+            label1.layer.backgroundColor = colorForPlayerIsTurn.cgColor
             
             currentImage = UIImage(named: "OIconButton")!
-            
+            xPut = true
+
+            label2.layer.backgroundColor = UIColor.white.cgColor
+          
         }
         sender.isEnabled = false
         checker(sender.tag, currentImage)
@@ -333,6 +335,7 @@ class GameViewControllerModel: UIViewController {
                 winOverlay2?.text = "LOSER!"
                 winOverlay2?.textColor = colorRed
                 winOverlay2?.font = UIFont.boldSystemFont(ofSize: 50)
+                
             } else if winSet.isSubset(of: oSet) {
               
                 displayOverlay()

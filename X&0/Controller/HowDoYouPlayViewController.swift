@@ -11,10 +11,8 @@ import AVFoundation
 
 class HowYouPlayViewController: UIViewController {
     
-    let player = Sound()
-    var sound = UIButton()
 
-    var soundON = false
+    
     
     let colorForButton = #colorLiteral(red: 0.5142127872, green: 0.8756996393, blue: 1, alpha: 1)
     
@@ -31,6 +29,8 @@ class HowYouPlayViewController: UIViewController {
             print("Couldn't find to CreateNewGameViewController")
             return
         }
+        
+        dismiss(animated: true, completion: nil)
         
         destinationVC.modalTransitionStyle = .flipHorizontal
         present(destinationVC, animated: true, completion: nil)
@@ -64,28 +64,6 @@ class HowYouPlayViewController: UIViewController {
         present(destinationVC, animated: true, completion: nil)
         
 //        navigationController?.pushViewController(destinationVC, animated: true)
-    }
-    
-    // Sound On/Off
-    @IBAction func soundButtonPressed(sender: Any) {
-        
-        if soundON == false {
-            
-            player.soundOn()
-            print("SoundOn")
-            sound.setImage(UIImage(named: "SoundIcon"), for: .normal)
-            
-            soundON = true
-            
-        }else if soundON == true {
-            
-            player.soundOff()
-            print("SoundOff")
-            sound.setImage(UIImage(named: "SoundOffIcon"), for: .normal)
-            soundON = false
-            
-        }
-        
     }
     
     // MARK: - viewDidLoad
@@ -158,17 +136,7 @@ class HowYouPlayViewController: UIViewController {
         playerVsDevice.addTarget(self, action: #selector(buttonPressedWithDevice(sender:)), for: .touchUpInside)
         view.addSubview(playerVsDevice)
         
-        sound = UIButton(frame: CGRect(x: bounds.size.width - 60,
-                                       y: 0.036 * bounds.size.height,
-                                       width: 50,
-                                       height: 50))
         
-//        sound.setImage(UIImage(named: "SoundIcon"), for: .normal)
-        sound.setImage(UIImage(named: "SoundOffIcon"), for: .normal)
-        sound.contentMode = .scaleAspectFill
-        
-        sound.addTarget(self, action: #selector(soundButtonPressed(sender:)), for: .touchUpInside)
-        view.addSubview(sound)
         
     }
   

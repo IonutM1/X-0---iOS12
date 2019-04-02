@@ -12,7 +12,7 @@ class Sound: AVAudioPlayer {
 
     
     private var player: AVAudioPlayer?
-    private let path = Bundle.main.path(forResource: "SoundMP3", ofType: "mp3")
+    let path = Bundle.main.path(forResource: "SoundMP3", ofType: "mp3")
     
     func soundOn() {
         
@@ -29,6 +29,5 @@ class Sound: AVAudioPlayer {
         
         player?.stop()
     }
-    
   
 }
