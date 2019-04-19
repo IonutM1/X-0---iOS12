@@ -33,6 +33,9 @@ class GameViewControllerModel: UIViewController {
     var winOverlay2: UILabel?
     var equalOverlay: UILabel?
     
+    var scoreXLabel: UILabel?
+    var scoreOLabel: UILabel?
+    
     let colorGreen = #colorLiteral(red: 0.3019607843, green: 1, blue: 0.5333333333, alpha: 1)
     let colorRed = #colorLiteral(red: 1, green: 0.3019607843, blue: 0.3019607843, alpha: 1)
     let colorForPlayerIsTurn = #colorLiteral(red: 0.5142127872, green: 0.8756996393, blue: 1, alpha: 1)
@@ -103,7 +106,6 @@ class GameViewControllerModel: UIViewController {
                                                  width: bounds.size.width,
                                                  height: 0.20 * bounds.size.height))
         
-        
 //        containerTopView.backgroundColor = #colorLiteral(red: 1, green: 0.7175391912, blue: 0.4974026084, alpha: 1)
         view.addSubview(containerTopView)
 
@@ -119,6 +121,18 @@ class GameViewControllerModel: UIViewController {
         
         label1.text = finalName1
         containerTopView.addSubview(label1)
+        
+        // scoreLabel
+        scoreXLabel = UILabel(frame: CGRect(x: (containerTopView.frame.size.width - 90) / 2,
+                             y: label1.frame.origin.y + 40,
+                             width: 90,
+                             height: 20))
+        scoreXLabel?.font = UIFont.systemFont(ofSize: 18)
+        
+        scoreXLabel?.textColor = UIColor.black
+        scoreXLabel?.textAlignment = .center
+        containerTopView.addSubview(scoreXLabel!)
+        
     }
     
     // DisplayCenterView
@@ -157,8 +171,6 @@ class GameViewControllerModel: UIViewController {
                 
                 button.layer.borderColor = UIColor.black.cgColor
               
-                
-                
                 print(button.tag)
                 containerButtonView!.addSubview(button)
 
@@ -188,12 +200,22 @@ class GameViewControllerModel: UIViewController {
         label2.font = UIFont.systemFont(ofSize: 25)
         label2.layer.cornerRadius = 20
 
-        
         label2.textAlignment = .center
         
         label2.text = finalName2
         
         containerBottomView.addSubview(label2)
+        
+        scoreOLabel = UILabel(frame: CGRect(x: (containerBottomView.frame.size.width - 90) / 2,
+                                            y: label2.frame.origin.y - 20,
+                                            width: 90,
+                                            height: 20))
+        
+        scoreOLabel?.font = UIFont.systemFont(ofSize: 18)
+        scoreOLabel?.textAlignment = .center
+        scoreOLabel?.textColor = UIColor.black
+       
+        containerBottomView.addSubview(scoreOLabel!)
         
         let newGame = UIButton(frame: CGRect(x: 10,
                                              y: containerBottomView.frame.height - (0.020 * bounds.size.height + 34),
@@ -254,12 +276,10 @@ class GameViewControllerModel: UIViewController {
             return
         }
         
+        
         if xPut {
             
             sender.setImage(UIImage(named: "XIconButton"), for: .normal)
-//            sender.setBackgroundImage(getImageWithColor(color: UIColor.blue,
-//                                                        size: sender.frame.size),
-//                                                        for: .normal)
             sender.index = 1
             
             
@@ -281,8 +301,10 @@ class GameViewControllerModel: UIViewController {
             xPut = true
 
             label2.layer.backgroundColor = UIColor.white.cgColor
-          
+            
         }
+        
+        
         sender.isEnabled = false
         checker(sender.tag, currentImage)
     }
@@ -294,7 +316,10 @@ class GameViewControllerModel: UIViewController {
             
             xNum.insert(tag, at: xNum.count)
             
+        
+            
             print("Insert in xNum \(tag) at \(xNum.count)")
+            
         } else if currentImage == UIImage(named: "OIconButton")! {
             
             oNum.insert(tag, at: oNum.count)
@@ -317,9 +342,13 @@ class GameViewControllerModel: UIViewController {
                 displayOverlay()
                 equal = false
                 
+                scoreX += 1
+                scoreXLabel?.text = "Score \(scoreX)"
+                scoreOLabel?.text = "Score \(scoreO)"
+                
                 print("\(self.finalName1) won")
                 
-                scoreX += 1
+                
                 
                 label1.text = "\(finalName1)    GREAT!"
                 
@@ -345,6 +374,8 @@ class GameViewControllerModel: UIViewController {
                 print("\(self.finalName2) Won")
                 
                 scoreO += 1
+                scoreXLabel?.text = "Score \(scoreX)"
+                scoreOLabel?.text = "Score \(scoreO)"
                 
                 label1.text = "\(finalName1)    TRY AGAIN!"
                 
@@ -368,7 +399,7 @@ class GameViewControllerModel: UIViewController {
             
             print("equal")
             displayEqualOverlay()
-            equalOverlay?.text = "EQUAL!"
+            equalOverlay?.text = "DRAW!"
             equalOverlay?.textColor = UIColor.white
             equalOverlay?.font = UIFont.boldSystemFont(ofSize: 70)
             
@@ -442,8 +473,10 @@ class GameViewControllerModel: UIViewController {
         containerTopView.backgroundColor = UIColor.white
         containerBottomView.backgroundColor = UIColor.white
         
-        label1.text = "\(finalName1)    \(scoreX)"
-        label2.text = "\(finalName2)    \(scoreO)"
+        
+        
+        label1.text = "\(finalName1)"
+        label2.text = "\(finalName2)"
         
         for subview in containerButtonView!.subviews{
             subview.removeFromSuperview()
