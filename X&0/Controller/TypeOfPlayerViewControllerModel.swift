@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import AVFoundation
+import SwiftyButton
 
 class TypeOfPlayerViewModel: UIViewController {
     
@@ -177,6 +178,7 @@ class TypeOfPlayerViewModel: UIViewController {
         namedLabel2.font = UIFont.systemFont(ofSize: 18)
         namedLabel2.backgroundColor = UIColor.white.withAlphaComponent(0.6)
         
+        
         // To make UILabel to clickabel
         namedLabel2.isUserInteractionEnabled = true
         
@@ -201,7 +203,7 @@ class TypeOfPlayerViewModel: UIViewController {
         containerView.addSubview(okButtonForPlayer2)
         
         // Set startButton
-        let startButton = UIButton(frame: CGRect(x: (containerView.frame.size.width - 140) / 2,
+        let startButton = PressableButton(frame: CGRect(x: (containerView.frame.size.width - 140) / 2,
                                                 y: containerView.frame.size.height - 224,
                                                 width: 140,
                                                 height: 50))
@@ -210,10 +212,9 @@ class TypeOfPlayerViewModel: UIViewController {
         startButton.setTitleColor(UIColor.white, for: .highlighted)
         startButton.setTitleShadowColor(UIColor.black, for: .normal)
         startButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-        startButton.backgroundColor = #colorLiteral(red: 0.3019607843, green: 1, blue: 0.5333333333, alpha: 1)
-//        startButton.layer.borderColor = UIColor.black.cgColor
-//        startButton.layer.borderWidth = 1
-        startButton.layer.cornerRadius = 20
+        startButton.colors = .init(button: #colorLiteral(red: 0.3019607843, green: 1, blue: 0.5333333333, alpha: 1), shadow: #colorLiteral(red: 0.2318087518, green: 0.7164361477, blue: 0.3921455145, alpha: 1))
+        startButton.cornerRadius = 6
+        startButton.shadowHeight = 5
         
         startButton.addTarget(self, action: #selector(startButtonPressed(sender:)), for: .touchUpInside)
         containerView.addSubview(startButton)

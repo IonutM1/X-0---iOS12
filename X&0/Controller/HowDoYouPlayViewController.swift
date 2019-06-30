@@ -8,14 +8,15 @@
 
 import UIKit
 import AVFoundation
+import SwiftyButton
 
 class HowYouPlayViewController: UIViewController {
     
 
     
     
-    let colorForButton = #colorLiteral(red: 0.5142127872, green: 0.8756996393, blue: 1, alpha: 1)
-    
+    let colorForButton = #colorLiteral(red: 0.1798445582, green: 0.5291955471, blue: 0.7605121136, alpha: 1)
+    let shadowColor = #colorLiteral(red: 0.1226756051, green: 0.368516624, blue: 0.5351373553, alpha: 1)
     let bounds = UIScreen.main.bounds
     let mainStoryboard = UIStoryboard(name: "Main", bundle: Bundle.main)
     
@@ -89,50 +90,49 @@ class HowYouPlayViewController: UIViewController {
         
         view.addSubview(backButton)
         
-        let howYouPlay = UILabel(frame: CGRect(x: (bounds.size.width - 140) / 2,
+        let howYouPlay = UILabel(frame: CGRect(x: (bounds.size.width - 170) / 2,
                                                y: 0.036 * bounds.size.height,
-                                               width: 140,
+                                               width: 170,
                                                height: 50))
-        howYouPlay.text = "How you play?"
+        howYouPlay.text = "Choose the game"
         howYouPlay.textAlignment = .center
         howYouPlay.textColor = UIColor.black
         howYouPlay.font = UIFont.boldSystemFont(ofSize: 20)
         
         view.addSubview(howYouPlay)
         
-        let playerVsPlayer = UIButton(frame: CGRect(x: (bounds.size.width - 250) / 2,
-                                                    y: (bounds.size.height - 200) / 2,
+        let playerVsPlayer = PressableButton(frame: CGRect(x: (bounds.size.width - 250) / 2,
+                                                    y: (bounds.size.height - 165) / 2,
                                                     width: 250,
-                                                    height: 50))
+                                                    height: 65))
         playerVsPlayer.setTitle("Player vs Player", for: .normal)
         playerVsPlayer.setTitleColor(UIColor.black, for: .normal)
         playerVsPlayer.setTitleColor(UIColor.white, for: .highlighted)
         playerVsPlayer.setTitleShadowColor(UIColor.black, for: .normal)
         playerVsPlayer.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-//        playerVsPlayer.layer.borderWidth = 1
-//        playerVsPlayer.layer.borderColor = UIColor.black.cgColor
-        playerVsPlayer.layer.cornerRadius = 20
-        playerVsPlayer.backgroundColor = colorForButton
         
-        
+        playerVsPlayer.colors = .init(button: colorForButton, shadow: shadowColor)
+        playerVsPlayer.shadowHeight = 5
+        playerVsPlayer.cornerRadius = 6
         
         playerVsPlayer.addTarget(self, action: #selector(buttonPressedWithPlayer(sender:)), for: .touchUpInside)
         
         view.addSubview(playerVsPlayer)
         
-        let playerVsDevice = UIButton(frame: CGRect(x: (bounds.size.width - 250) / 2,
-                                                    y: (bounds.size.height + 160 ) / 2,
+        let playerVsDevice = PressableButton(frame: CGRect(x: (bounds.size.width - 250) / 2,
+                                                    y: (bounds.size.height + 100) / 2,
                                                     width: 250,
-                                                    height: 50))
+                                                    height: 65))
         playerVsDevice.setTitle("Player vs Device", for: .normal)
         playerVsDevice.setTitleColor(UIColor.black, for: .normal)
         playerVsDevice.setTitleColor(UIColor.white, for: .highlighted)
         playerVsDevice.setTitleShadowColor(UIColor.black, for: .normal)
         playerVsDevice.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-//        playerVsDevice.layer.borderWidth = 1
-//        playerVsDevice.layer.borderColor = UIColor.black.cgColor
-        playerVsDevice.layer.cornerRadius = 20
-        playerVsDevice.backgroundColor = colorForButton
+        
+        playerVsDevice.colors = .init(button: colorForButton, shadow: shadowColor)
+        playerVsDevice.shadowHeight = 5
+        playerVsDevice.cornerRadius = 6
+        
         playerVsDevice.addTarget(self, action: #selector(buttonPressedWithDevice(sender:)), for: .touchUpInside)
         view.addSubview(playerVsDevice)
         

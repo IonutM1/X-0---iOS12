@@ -15,7 +15,7 @@ class CreateNewGameViewController: UIViewController, UIApplicationDelegate {
     var sound = UIButton()
     
     var soundON = true
-    var soundWhenLaunchApp = true
+    var soundWhenLaunchApp = false
     var soundOnWhenComeBack = true
     
     override var prefersStatusBarHidden: Bool { return true }

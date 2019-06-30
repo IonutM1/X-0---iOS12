@@ -7,11 +7,13 @@
 //
 
 import UIKit
-import AVFoundation
+
+
+
+
 
 class GameViewControllerModel: UIViewController {
     
-    let player = Sound()
     var sound = UIButton()
     
     var xPut = true
@@ -20,7 +22,6 @@ class GameViewControllerModel: UIViewController {
     // X & O Numbers
     var xNum: Array<Int> = []
     var oNum: Array<Int> = []
-    
     
     var finalName1 = ""
     var finalName2 = ""
@@ -38,10 +39,13 @@ class GameViewControllerModel: UIViewController {
     
     let colorGreen = #colorLiteral(red: 0.3019607843, green: 1, blue: 0.5333333333, alpha: 1)
     let colorRed = #colorLiteral(red: 1, green: 0.3019607843, blue: 0.3019607843, alpha: 1)
-    let colorForPlayerIsTurn = #colorLiteral(red: 0.5142127872, green: 0.8756996393, blue: 1, alpha: 1)
+    let colorForPlayerIsTurn = #colorLiteral(red: 1, green: 0.3019607843, blue: 0.3019607843, alpha: 1)
     
     @IBOutlet var label1: UILabel!
     @IBOutlet var label2: UILabel!
+    
+    var isYourTurn1: UILabel?
+    var isYourTurn2: UILabel?
     
     var containerButtonView: UIView?
     var containerTopView = UIView()
@@ -81,21 +85,58 @@ class GameViewControllerModel: UIViewController {
         resetGame()
     }
     
-    @IBAction func soundOnButtonPressed(sender: Any) {
+    @objc func buttonSelected(sender: XOButton){
         
-        player.soundOn()
+        print("Selected button with tag \(sender.tag)")
         
-        sound.isUserInteractionEnabled = false
+        if (sender.currentImage != nil) {
+            return
+        }
         
+        
+        
+        if xPut {
+            
+            sender.setImage(UIImage(named: "XIconButton"), for: .normal)
+            sender.index = 1
+            
+            
+            
+            label1.layer.backgroundColor = UIColor.white.cgColor
+            
+            
+            currentImage = UIImage(named: "XIconButton")!
+            isYourTurn1?.text = ""
+            
+            xPut = false
+            
+            label2.layer.backgroundColor = colorForPlayerIsTurn.cgColor
+            
+            isYourTurn2?.text = "Is your turn"
+           
+            
+        }
+        else {
+            
+            sender.setImage(UIImage(named: "OIconButton"), for: .normal)
+            sender.index = 0
+            
+            label1.layer.backgroundColor = colorForPlayerIsTurn.cgColor
+            isYourTurn1?.text = "Is your turn"
+            
+            currentImage = UIImage(named: "OIconButton")!
+            xPut = true
+            
+            label2.layer.backgroundColor = UIColor.white.cgColor
+            isYourTurn2?.text = ""
+            
+        }
+        
+        
+        sender.isEnabled = false
+        checker(sender.tag, currentImage)
     }
     
-    @IBAction func soundOffButtonPressed(sender: Any) {
-        
-        player.soundOff()
-        
-        sound.isUserInteractionEnabled = true
-        
-    }
     
     // MARK: - Set Label & Button
     // DisplayTopView
@@ -116,22 +157,36 @@ class GameViewControllerModel: UIViewController {
                                        height: 40))
         label1.textAlignment = .center
         label1.font = UIFont.systemFont(ofSize: 25)
-        label1.layer.cornerRadius = 20
-        label1.layer.backgroundColor = colorForPlayerIsTurn.cgColor
+//        label1.layer.cornerRadius = 20
+//        label1.layer.backgroundColor = colorForPlayerIsTurn.cgColor
+
+//        label1.myLayer(borderWidth: 0, borderColor: nil, cornerRadius: 20, layerBackgroundColor: colorForPlayerIsTurn)
+        label1.myLayer()
         
         label1.text = finalName1
         containerTopView.addSubview(label1)
         
         // scoreLabel
-        scoreXLabel = UILabel(frame: CGRect(x: (containerTopView.frame.size.width - 90) / 2,
-                             y: label1.frame.origin.y + 40,
-                             width: 90,
-                             height: 20))
+        scoreXLabel = UILabel(frame: CGRect(x: label1.frame.origin.x + 200,
+                                            y: label1.frame.origin.y + 40,
+                                            width: 90,
+                                            height: 20))
         scoreXLabel?.font = UIFont.systemFont(ofSize: 18)
         
         scoreXLabel?.textColor = UIColor.black
         scoreXLabel?.textAlignment = .center
         containerTopView.addSubview(scoreXLabel!)
+        
+        isYourTurn1 = UILabel(frame: CGRect(x: (containerTopView.frame.size.width - 110) / 2,
+                                           y: label1.frame.origin.y + 40,
+                                           width: 110,
+                                           height: 20))
+       
+       
+        isYourTurn1?.font = UIFont.boldSystemFont(ofSize: 20)
+        isYourTurn1?.text = "Is your turn"
+        isYourTurn1?.textAlignment = .center
+        containerTopView.addSubview(isYourTurn1!)
         
     }
     
@@ -145,16 +200,22 @@ class GameViewControllerModel: UIViewController {
         
         containerButtonView!.backgroundColor = UIColor.white
         containerButtonView?.layer.borderColor = UIColor.white.cgColor
-        containerButtonView?.layer.borderWidth = 9
+//        containerButtonView?.layer.borderWidth = 9
         
         view.addSubview(containerButtonView!)
+        
+       
         
         let buttonWidth = containerButtonView!.frame.size.width / 3
         let buttonHeight = containerButtonView!.frame.size.height / 3
         
+        
         for i in 0...2 {
             
+           
             for j in 0...2{
+                
+               
                 
                 button = XOButton(frame: CGRect(x: CGFloat(i) * buttonWidth,
                                                     y: CGFloat(j) * buttonHeight,
@@ -167,18 +228,27 @@ class GameViewControllerModel: UIViewController {
                                                     size: button.frame.size)
             
                 button.setBackgroundImage(buttonImage, for: .normal)
-                button.layer.borderWidth = 8
+//                button.layer.borderWidth = 1
                 
-                button.layer.borderColor = UIColor.black.cgColor
+//                button.layer.borderColor = UIColor.black.cgColor
               
-                print(button.tag)
+                
                 containerButtonView!.addSubview(button)
 
                 button.tag = i + 3 * j
                 button.addTarget(self, action: #selector(buttonSelected(sender:)), for: .touchUpInside)
+                print(button.tag)
+                
             }
             
         }
+        let gridBackground = UIImageView(frame: CGRect(x: 0,
+                                                       y: 0,
+                                                       width: containerButtonView!.frame.width,
+                                                       height: containerButtonView!.frame.height))
+        gridBackground.contentMode = .scaleToFill
+        gridBackground.image = UIImage(named: "Grid")
+        containerButtonView?.addSubview(gridBackground)
         
     }
     
@@ -206,7 +276,7 @@ class GameViewControllerModel: UIViewController {
         
         containerBottomView.addSubview(label2)
         
-        scoreOLabel = UILabel(frame: CGRect(x: (containerBottomView.frame.size.width - 90) / 2,
+        scoreOLabel = UILabel(frame: CGRect(x: label1.frame.origin.x + 200,
                                             y: label2.frame.origin.y - 20,
                                             width: 90,
                                             height: 20))
@@ -216,6 +286,16 @@ class GameViewControllerModel: UIViewController {
         scoreOLabel?.textColor = UIColor.black
        
         containerBottomView.addSubview(scoreOLabel!)
+        
+        isYourTurn2 = UILabel(frame: CGRect(x: (containerBottomView.frame.size.width - 110) / 2,
+                                            y: label2.frame.origin.y - 20,
+                                            width: 110,
+                                            height: 20))
+        
+      
+        isYourTurn2?.font = UIFont.boldSystemFont(ofSize: 20)
+        isYourTurn2?.textAlignment = .center
+        containerBottomView.addSubview(isYourTurn2!)
         
         let newGame = UIButton(frame: CGRect(x: 10,
                                              y: containerBottomView.frame.height - (0.020 * bounds.size.height + 34),
@@ -268,46 +348,7 @@ class GameViewControllerModel: UIViewController {
         
     }
     
-    @objc func buttonSelected(sender: XOButton){
-        
-        print("Selected button with tag \(sender.tag)")
-        
-        if (sender.currentImage != nil) {
-            return
-        }
-        
-        
-        if xPut {
-            
-            sender.setImage(UIImage(named: "XIconButton"), for: .normal)
-            sender.index = 1
-            
-            
-            
-            label1.layer.backgroundColor = UIColor.white.cgColor
-            currentImage = UIImage(named: "XIconButton")!
-            
-            xPut = false
-        
-            label2.layer.backgroundColor = colorForPlayerIsTurn.cgColor
-        } else {
-            
-            sender.setImage(UIImage(named: "OIconButton"), for: .normal)
-            sender.index = 0
-            
-            label1.layer.backgroundColor = colorForPlayerIsTurn.cgColor
-            
-            currentImage = UIImage(named: "OIconButton")!
-            xPut = true
-
-            label2.layer.backgroundColor = UIColor.white.cgColor
-            
-        }
-        
-        
-        sender.isEnabled = false
-        checker(sender.tag, currentImage)
-    }
+    
     
     func checker(_ tag: Int, _ currentImage: UIImage) {
         
@@ -315,8 +356,6 @@ class GameViewControllerModel: UIViewController {
         if currentImage == UIImage(named: "XIconButton")! {
             
             xNum.insert(tag, at: xNum.count)
-            
-        
             
             print("Insert in xNum \(tag) at \(xNum.count)")
             
@@ -329,7 +368,7 @@ class GameViewControllerModel: UIViewController {
         
         print("xNum.count is \(xNum.count)")
         print("oNum.count is \(oNum.count)")
-        
+    
         let xSet = Set(xNum)
         let oSet = Set(oNum)
         
@@ -365,6 +404,7 @@ class GameViewControllerModel: UIViewController {
                 winOverlay2?.textColor = colorRed
                 winOverlay2?.font = UIFont.boldSystemFont(ofSize: 50)
                 
+                
             } else if winSet.isSubset(of: oSet) {
               
                 displayOverlay()
@@ -387,6 +427,7 @@ class GameViewControllerModel: UIViewController {
                 winOverlay?.text = "LOSER"
                 winOverlay?.textColor = colorRed
                 winOverlay?.font = UIFont.boldSystemFont(ofSize: 50)
+               
                 
                 winOverlay2?.text = "WINNER!"
                 winOverlay2?.textColor = colorGreen
@@ -402,6 +443,8 @@ class GameViewControllerModel: UIViewController {
             equalOverlay?.text = "DRAW!"
             equalOverlay?.textColor = UIColor.white
             equalOverlay?.font = UIFont.boldSystemFont(ofSize: 70)
+            scoreXLabel?.text = "Score \(scoreX)"
+            scoreOLabel?.text = "Score \(scoreO)"
             
         }
         
@@ -444,6 +487,9 @@ class GameViewControllerModel: UIViewController {
       
         containerButtonView!.isUserInteractionEnabled = false
         
+        isYourTurn1?.frame.origin.x = label1.frame.origin.x + 10
+        
+        isYourTurn2?.frame.origin.x = label1.frame.origin.x + 10
     }
     
     func displayEqualOverlay(){
@@ -462,6 +508,9 @@ class GameViewControllerModel: UIViewController {
         
         containerButtonView!.isUserInteractionEnabled = false
         
+        isYourTurn1?.frame.origin.x = label1.frame.origin.x + 10
+        
+        isYourTurn2?.frame.origin.x = label1.frame.origin.x + 10
     }
     
     // MARK: - ResetGame
@@ -477,6 +526,10 @@ class GameViewControllerModel: UIViewController {
         
         label1.text = "\(finalName1)"
         label2.text = "\(finalName2)"
+        
+        
+        
+        
         
         for subview in containerButtonView!.subviews{
             subview.removeFromSuperview()

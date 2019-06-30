@@ -20,6 +20,8 @@ class GameWithPlayerViewController: GameViewControllerModel {
         displayCenterView()
         displayBottomView()
         
+        
+        
         print(label1.text!)
         print(label2.text!)
     }
