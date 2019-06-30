@@ -19,7 +19,6 @@ class PlayerVsPlayerViewController: TypeOfPlayerViewModel {
             return
         }
 
-        
         destinationVC.finalName1 = "\(name1) - X"
         destinationVC.finalName2 = "\(name2) - O"
         
@@ -30,8 +29,6 @@ class PlayerVsPlayerViewController: TypeOfPlayerViewModel {
         
 //        performSegue(withIdentifier: "GameWithPlayer", sender: self)
     }
-    
-
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {

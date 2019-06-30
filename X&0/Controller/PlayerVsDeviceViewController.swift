@@ -16,9 +16,9 @@ class PlayerVsDeviceViewController: PlayerVsPlayerViewController {
             print("Couldn't find to GameWithDeviceViewController")
             return
         }
-        
         destinationVC.finalName1 = "\(name1)    X"
         destinationVC.finalName2 = "\(name2)    O"
+        
         destinationVC.modalTransitionStyle = .crossDissolve
         present(destinationVC, animated: true, completion: nil)
     }

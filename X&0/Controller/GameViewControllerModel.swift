@@ -8,10 +8,6 @@
 
 import UIKit
 
-
-
-
-
 class GameViewControllerModel: UIViewController {
     
     var sound = UIButton()
@@ -93,8 +89,6 @@ class GameViewControllerModel: UIViewController {
             return
         }
         
-        
-        
         if xPut {
             
             sender.setImage(UIImage(named: "XIconButton"), for: .normal)
@@ -114,7 +108,6 @@ class GameViewControllerModel: UIViewController {
             
             isYourTurn2?.text = "Is your turn"
            
-            
         }
         else {
             
@@ -132,11 +125,9 @@ class GameViewControllerModel: UIViewController {
             
         }
         
-        
         sender.isEnabled = false
         checker(sender.tag, currentImage)
     }
-    
     
     // MARK: - Set Label & Button
     // DisplayTopView

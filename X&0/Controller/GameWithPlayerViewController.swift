@@ -13,14 +13,10 @@ class GameWithPlayerViewController: GameViewControllerModel {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-
         
         displayTopView()
         displayCenterView()
         displayBottomView()
-        
-        
         
         print(label1.text!)
         print(label2.text!)
