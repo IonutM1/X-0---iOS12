@@ -31,8 +31,6 @@ class GameWithDeviceViewController: GameViewControllerModel {
     @IBOutlet var btn7: UIButton!
     @IBOutlet var btn8: UIButton!
     @IBOutlet var btn9: UIButton!
-
-    @IBOutlet var message: UILabel!
     
     var resetBtn: UIButton!
     var newGame: UIButton!
@@ -43,12 +41,17 @@ class GameWithDeviceViewController: GameViewControllerModel {
     
     //MARK: - UI Button Clicked
     @IBAction func UIButtonClicked(_ sender : UIButton){
-        message.isHidden = true
+        if done == false{
+            
         if((plays[sender.tag] == nil) && !aiDeciding && !done){
             setImageForSpot(spot: sender.tag, player: 1)
         }
         checkForWin()
+        
         aiTurn()
+        }else {
+            return
+        }
     }
     //MARK: - Set image for spot
     func setImageForSpot(spot:Int, player:Int){
@@ -80,7 +83,7 @@ class GameWithDeviceViewController: GameViewControllerModel {
     
     //MARK: - Check for win
     func checkForWin(){
-        let whoWon = ["I":0,"You":1]
+        let whoWon = [finalName2:0,finalName1:1]
         for(key,value) in whoWon{
             if((plays[7] == value && plays[8] == value && plays[9] == value) || //bottom row match
                 (plays[4] == value && plays[5] == value && plays[6] == value) || //middle row match
@@ -91,10 +94,15 @@ class GameWithDeviceViewController: GameViewControllerModel {
                 (plays[1] == value && plays[5] == value && plays[9] == value) || //first cross
                 (plays[3] == value && plays[5] == value && plays[7] == value) //second cross
                 ){
-                message.isHidden = false
-                message.text = "Looks like \(key) won"
-               
+                
+                displayWonMessage()
+                winOverlay?.text = "\(key) WON"
+                
+                winOverlay?.textColor = colorGreen
+                winOverlay?.font = UIFont.boldSystemFont(ofSize: 40)
                 done = true
+                
+                
             }
         }
         
@@ -248,7 +256,7 @@ class GameWithDeviceViewController: GameViewControllerModel {
     
     // func aiTurn
     func aiTurn(){
-        if(done){
+        if done{
             return
         }else{
             aiDeciding = true
@@ -298,19 +306,23 @@ class GameWithDeviceViewController: GameViewControllerModel {
                 return
             }
             
-            message.isHidden = false
-            message.text = "Looks like its a tie!"
-            
-            reset()
+            displayDrawMessage()
+  
+            equalOverlay?.text = "DRAW!"
+            equalOverlay?.textColor = UIColor.white
+            equalOverlay?.font = UIFont.boldSystemFont(ofSize: 70)
             
             aiDeciding = false
+            done = true
         }
     }
     
 //    MARK: - reset button clicked
     @IBAction func resetBtnClicked(_ sender: UIButton) {
         done = false
-        message.isHidden = true
+        
+        winOverlay?.removeFromSuperview()
+        equalOverlay?.removeFromSuperview()
         reset()
     }
     
@@ -326,23 +338,68 @@ class GameWithDeviceViewController: GameViewControllerModel {
         img7.image = nil
         img8.image = nil
         img9.image = nil
+        
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        displayTopView()
         displayBtnNewGameAndReset()
-        
-    }
+        }
     
     //MARK: - Display button NewGame & Reset
     func displayBtnNewGameAndReset(){
+        
+        
         containerBottomView = UIView(frame: CGRect(x: 0,
                                                    y: 0.80 * bounds.size.height,
                                                    width: bounds.size.width,
                                                    height: 0.20 * bounds.size.height))
         
         view.addSubview(containerBottomView)
+        
+        
+        containerBottomView = UIView(frame: CGRect(x: 0,
+                                                   y: 0.80 * bounds.size.height,
+                                                   width: bounds.size.width,
+                                                   height: 0.20 * bounds.size.height))
+        
+        view.addSubview(containerBottomView)
+        
+        label2 = UILabel(frame: CGRect(x: (containerBottomView.frame.size.width - 300) / 2,
+                                       y: (containerBottomView.frame.size.height - 80) / 2,
+                                       width: 300,
+                                       height: 40))
+        
+        label2.font = UIFont.systemFont(ofSize: 25)
+        label2.layer.cornerRadius = 20
+        
+        label2.textAlignment = .center
+        
+        label2.text = finalName2
+        
+        containerBottomView.addSubview(label2)
+        
+        scoreOLabel = UILabel(frame: CGRect(x: label1.frame.origin.x + 200,
+                                            y: label2.frame.origin.y - 20,
+                                            width: 90,
+                                            height: 20))
+        
+        scoreOLabel?.font = UIFont.systemFont(ofSize: 18)
+        scoreOLabel?.textAlignment = .center
+        scoreOLabel?.textColor = UIColor.black
+        
+        containerBottomView.addSubview(scoreOLabel!)
+        
+        isYourTurn2 = UILabel(frame: CGRect(x: (containerBottomView.frame.size.width - 110) / 2,
+                                            y: label2.frame.origin.y - 20,
+                                            width: 110,
+                                            height: 20))
+        
+        
+        isYourTurn2?.font = UIFont.boldSystemFont(ofSize: 20)
+        isYourTurn2?.textAlignment = .center
+        containerBottomView.addSubview(isYourTurn2!)
         
         newGame = UIButton(frame: CGRect(x: 10,
                                              y: containerBottomView.frame.height - (0.020 * bounds.size.height + 34),
@@ -379,6 +436,52 @@ class GameWithDeviceViewController: GameViewControllerModel {
         containerBottomView.addSubview(resetBtn)
         
     }
+    
+    //MARK: - Display Overlay For this
+    func displayWonMessage(){
+        containerBottomView = UIView(frame: CGRect(x: 0,
+                                                   y: 0,
+                                                   width: bounds.size.width,
+                                                   height: bounds.size.height))
+        
+        winOverlay = UILabel(frame: CGRect(x: 0,
+                                           y: bounds.size.height - (bounds.size.height / 2),
+                                           width: bounds.size.width,
+                                           height: containerBottomView.frame.height - (0.080 * bounds.size.height)))
+        
+        winOverlay?.textAlignment = .center
+        
+        winOverlay?.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        winOverlay?.shadowColor = UIColor.white
+        
+        view.addSubview(winOverlay!)
+        
+        UIView.animate(withDuration: 1.5,
+                       animations:{
+                        self.winOverlay?.frame.origin.y = self.containerBottomView.frame.origin.y})
+
+        }
+    
+    func displayDrawMessage(){
+        containerBottomView = UIView(frame: CGRect(x: 0,
+                                                   y: 0,
+                                                   width: bounds.size.width,
+                                                   height: bounds.size.height))
+        equalOverlay = UILabel(frame: CGRect(x: 0,
+                                             y: bounds.size.height - (bounds.size.height / 2),
+                                             width: bounds.size.width,
+                                             height: containerBottomView.frame.height - (0.080 * bounds.size.height)))
+        
+        equalOverlay?.textAlignment = .center
+        
+        equalOverlay?.backgroundColor = UIColor.black.withAlphaComponent(0.9)
+        view.addSubview(equalOverlay!)
+        
+        UIView.animate(withDuration: 1.5,
+                       animations: {self.equalOverlay?.frame.origin.y = self.containerBottomView.frame.origin.y})
+        
+    }
+    
     
 }
 

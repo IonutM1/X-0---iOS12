@@ -107,7 +107,7 @@ class GameViewControllerModel: UIViewController {
             label2.layer.backgroundColor = colorForPlayerIsTurn.cgColor
             
             isYourTurn2?.text = "Is your turn"
-           
+            
         }
         else {
             
